@@ -1,0 +1,36 @@
+.container {
+    width: 600px;
+    background-color: rgb(96, 219, 178);
+    padding: 20px 0;
+}
+
+.title {
+    text-align: center;
+}
+
+.books-list {
+    padding: 0 60px;
+}
+
+.books-list .book {
+    list-style-type: none;
+    padding: 15px;
+    background-color:rgb(220, 220, 205);
+    margin-bottom: 20px;
+    display: flex;
+    justify-content:space-between;
+    align-items: baseline;
+}
+
+.book .btn-delete {
+    font-size: 13px;
+    text-transform: uppercase;
+    padding: 10px 15px;
+    border-radius: 20px;
+    background-color:rgb(195, 168, 134);
+}
+
+
+.book .btn-delete:hover {
+    background-color: rgb(192, 130, 53);
+}
