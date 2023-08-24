@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset=utf-8 />
+    <title>JS DOM paragraph style</title>
+</head>
+
+<body>
+    <p id='text'>JavaScript Exercises - w3resource</p>
+    <div>
+        <button id="jsstyle" onclick="js_style()">Style</button>
+    </div>
+
+    <script>
+        const button = document.querySelector('#jsstyle')
+        const text = document.getElementById('text')
+
+        // the text will be change when clicking the button
+        button.addEventListener('click', (event) => {
+            text.setAttribute('style', 'font-family: Arial; font-size: 15px; color: red')
+        } )
+    </script>
+</body>
+
+</html>

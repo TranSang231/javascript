@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      h1 {
+        text-align: center;
+      }
+
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      ul li {
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        width: 300px;
+        justify-content: space-around;
+        align-items: center;
+        margin: 10px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>My Book List</h1>
+
+    <script>
+      var books = [
+        {
+          title: "The Design of EveryDay Things",
+          author: "Don Norman",
+          URL: "https://m.media-amazon.com/images/I/416Hql52NCL.jpg",
+          alreadyRead: false,
+        },
+        {
+          title: "The Most Human Human",
+          author: "Brian Christian",
+          URL: "https://images-na.ssl-images-amazon.com/images/S/compressed.photo.goodreads.com/books/1295465264i/8884400.jpg",
+          alreadyRead: true,
+        },
+        {
+          title: "Essays in live",
+          author: "Allain de Botton",
+          URL: "https://m.media-amazon.com/images/I/81DG2nM4s3L._AC_UF1000,1000_QL80_.jpg",
+          alreadyRead: true,
+        },
+        {
+          title: "The Course of Love",
+          author: "Allain de Botton",
+          URL: "https://www.thetimes.co.uk/imageserver/image/%2Fmethode%2Ftimes%2Fprod%2Fweb%2Fbin%2F08fa7686-06ee-11e6-9d17-169208febe58.jpg?crop=1595%2C2392%2C20%2C81",
+          alreadyRead: true,
+        },
+      ];
+
+      // create ul element to container books and append it into the page
+      const listBooks = document.createElement("ul");
+      document.body.appendChild(listBooks);
+
+      //   add A Book
+      books.forEach((book) => {
+        //  create li element and append into listBooks (ul)
+        const wrapBook = document.createElement("li");
+        listBooks.appendChild(wrapBook);
+
+        // create h2 element and add the book title
+        const title = document.createElement("h2");
+        title.textContent = book.title;
+
+        //  create p element and add the author
+        const author = document.createElement("p");
+        author.textContent = book.author;
+
+        // append title and author into div element;
+        wrapBook.appendChild(title);
+        wrapBook.appendChild(author);
+
+        // add an img element for each book and append it into wrapbook
+        const image = document.createElement("img");
+        image.setAttribute("src", book.URL);
+        image.setAttribute("width", "200px");
+        wrapBook.appendChild(image);
+
+        //   Change the style of the book depending on whether you have read it or not.
+        if (!book.alreadyRead) {
+            wrapBook.setAttribute('style','background: gray; color: white')
+
+        } 
+      });
+    </script>
+  </body>
+</html>
