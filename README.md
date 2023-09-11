@@ -52,7 +52,7 @@ git checkout practice
 npm install parcel
 npm start
 ```
-- Step 03:
+- Step 04: Open http://localhost:1234/ in browser.
 ## Deploy vercel:
 - Step 01: Setting Vercel CLI:
 ```
