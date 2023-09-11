@@ -47,6 +47,11 @@ git clone https://github.com/TranSang231/javascript.git
 ```
 git checkout practice
 ```
+- Step 03: Install and run Parcel
+```
+npm install parcel
+npm start
+```
 - Step 03:
 ## Deploy vercel:
 - Step 01: Setting Vercel CLI:
