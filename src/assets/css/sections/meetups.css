@@ -1,0 +1,9 @@
+.meetups .container {
+  display: flex;
+  flex-direction: column;
+}
+
+.meetups .btn-create {
+  align-self: flex-end;
+  margin-right: 15px;
+}
