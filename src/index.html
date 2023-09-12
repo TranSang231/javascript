@@ -25,46 +25,74 @@
       </div>
     </section>
 
+    <!-- create a form to create A New Meetup -->
     <section class="create-meetup hidden">
-      <div class="background"></div>
+      <div class="background">
+        <img class="image" src="./assets/images/background-form.jpg" alt="">
+      </div>
+      
       <div class="wrap-form">
         <button class="btn-close"></button>
         <form class="form-meetup" action="">
           <h2 class="form-title title">Create Meetup</h2>
+          <section>
+            <h3 class="subtitle">Speaker Information</h3>
+  
+            <div class="group-form">
+              <label class="label" for="name">Name:</label>
+              <input class="form-control" type="text" name="name" id="name" />
+            </div>
+  
+            <div class="group-form">
+              <label class="label" for="age">Age:</label>
+              <input class="form-control" type="text" name="age" id="age" />
+            </div>
 
-          <h3 class="subtitle">Speaker Information</h3>
+            <div class="group-form">
+              <label class="label" for="twitter">Twitter:</label>
+              <input class="form-control" type="url" name="twitter" id="twitter" />
+            </div>
+            
+            <div class="group-form">              
+              <label class="label" for="avatar">Avatar:</label>
+              <input class="form-control" type="file" accept="images/*" name="avatar" id="avatar" />
+            </div>
+  
+          </section>
 
-          <label class="label" for="name">Name:</label>
-          <input class="form-control" type="text" name="name" id="name" />
+          <section>
+            <h3 class="subtitle">Meeting Information</h3>
+            <div class="group-form">
+              <label class="label" for="topic">Topic:</label>
+              <input class="form-control" type="text" name="topic" id="topic" />  
+            </div>
+  
+            <div class="group-form">
+              <label class="label" for="date">Date:</label>
+              <input class="form-control" type="date" name="date" id="date" />
+            </div>
+            
+            <div class="group-form">        
+              <label class="label" for="location">Location:</label>
+              <input class="form-control" type="text" name="location" id="location" />
+            </div>
 
-          <label class="label" for="age">Age:</label>
-          <input class="form-control" type="text" name="age" id="age" />
+            <div class="group-form">
+              <label class="label" for="fromtime">Start:</label>
+              <input class="form-control" type="time" name="fromtime" id="fromtime"/>
+            </div>
 
-          <label class="label" for="twitter">Twitter:</label>
-          <input class="form-control" type="url" name="twitter" id="twitter" />
+            <div class="group-form">
+              <label class="label" for="endtime">End:</label>
+              <input class="form-control" type="time" name="endtime" id="endtime"/>
+            </div>
+            
+            <div class="group-form">
+              <label class="label" for="note">Note:</label>
+              <textarea class="form-control" name="note" id="note" cols="30" rows="10"></textarea>
+            </div>
+          </section>
 
-          <label class="label" for="avatar">Avatar:</label>
-          <input class="form-control" type="file" accept="images/*" name="avatar" id="avatar" />
-
-          <h3 class="subtitle">Meeting Information</h3>
-
-          <label class="label-" for="topic">Topic:</label>
-          <input class="form-control" type="text" name="topic" id="topic" />
-
-          <label class="label" for="date">Date:</label>
-          <input class="form-control" type="date" name="date" id="date" />
-
-          <label class="label" for="location">Location:</label>
-          <input class="form-control" type="text" name="location" id="location" />
-
-          <label class="label" for="fromtime">Start:</label>
-          <input class="form-control" type="time" name="fromtime" id="fromtime" />
-
-          <label class="label" for="endtime">End:</label>
-          <input class="form-control" type="time" name="endtime" id="endtime" />
-
-          <label class="label" for="note">Note:</label>
-          <textarea class="form-control" name="note" id="note" cols="30" rows="10"></textarea>
 
           <button class="button btn-create" type="submit">Create</button>
         </form>

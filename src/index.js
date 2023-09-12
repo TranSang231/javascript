@@ -11,3 +11,12 @@ btn_create[0].addEventListener('click', () => {
 btn_close.addEventListener('click', () => {
     create_Meetup.classList.remove("appear");
 })
+
+// Modal click outside
+const background = document.querySelector('.background');
+document.body.addEventListener('dblclick', (event) => {
+    const self = event.target.closest('.wrap-form');
+    if (!self) {
+        create_Meetup.classList.remove("appear");
+    }
+})

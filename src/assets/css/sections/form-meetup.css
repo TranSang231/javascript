@@ -1,7 +1,16 @@
+/* css for form  */
+.create-meetup .background .image {
+  width: inherit;
+  height: inherit;
+  object-fit: cover;
+}
+
 .wrap-form {
   width: 100%;
   height: 100%;
-  background-color: var(--secondary-color);
+  background-image: url("../../images/background-form.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
   position: absolute;
   top: 0;
   z-index: 2000;
@@ -12,9 +21,12 @@
 .form-meetup {
   width: 260px;
   align-self: center;
-  border: 2px solid var(--ntrl-max-color);
-  border-radius: 10px;
+  font-family: 'Work-Sans';
+  background-color: var(--tertiary-color);
+  color: var(--primary-color);
   padding: 0 20px;
+  border: 2px solid var(--primary-color);
+  border-radius: 10px;
   margin-bottom: 40px;
   overflow-y: scroll;
 }
@@ -27,29 +39,35 @@
   text-align: center;
 }
 
+.group-form {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 15px;
+}
+
 .form-meetup .label {
-  display: block;
-  padding-bottom: 5px;
+  margin-bottom: 5px;
 }
 
 .form-meetup .form-control {
-  width: 100%;
   background-color: transparent;
-  border: 2px solid var(--ntrl-max-color);
-  border-radius: 6px;
-  padding: 5px 0;
-  margin-bottom: 10px;
-  text-indent: 10px;
-  color: var(--ntrl-max-color);
+  font-size: 12px;
+  border: 2px solid var(--primary-color);
+  padding: 10px 10px 10px 5px;
+  color: var(--primary-color);
+}
+
+.form-meetup input[type="date"]::-webkit-calendar-picker-indicator {
+  margin-right: 10px;
+}
+
+.form-meetup input[type="time"]::-webkit-calendar-picker-indicator {
+  margin-right: 10px;
 }
 
 .form-meetup .btn-create {
   display: block;
   margin: 0 auto 20px auto;
-  border-radius: 10px;
-}
-
-.form-meetup .btn-create:hover {
   background-color: var(--primary-color);
 }
 
@@ -60,10 +78,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    background-image: none;
+    background-color: var(--tertiary-color);
     border-radius: 10px;
   }
 
   .form-meetup {
+    width: 320px;
     border: 0;
   }
 }
@@ -77,13 +98,13 @@
     width: 400px;
   }
 
-  .label {
+  .form-meetup .label {
     padding-bottom: 6px;
   }
 
-  .form-control {
-    border-radius: 10px;
-    padding: 10px 0;
+  .form-meetup .form-control {
+    font-size: 16px;
+    padding: 12px 10px;
     margin-bottom: 15px;
   }
 }

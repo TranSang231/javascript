@@ -1,3 +1,4 @@
+
 .hidden {
   display: none;
 }
@@ -5,7 +6,7 @@
 .appear {
   display: block;
 }
-
+  
 .background {
   width: 100vw;
   height: 100vh;
@@ -17,37 +18,38 @@
 }
 
 .title {
-  font-family: "Roboto-Medium";
+  font-family: 'Form';
+  text-transform: uppercase;
+  letter-spacing: -3.5px;
   font-size: 18px;
-  margin-top: 20px;
-  margin-bottom: 20px;
+  margin-top: 35px;
+  margin-bottom: 35px;
 }
 
 .subtitle {
-  font-family: "Roboto-Medium";
-  font-size: 12px;
+  font-family: 'Work-Sans';
+  font-size: 16px;
   margin-bottom: 15px;
-  margin-top: 15px;
+  margin-top: 35px;
 }
 
 @media screen and (min-width: 768px) {
   .title {
-    font-size: 20px;
-    margin-top: 25px;
-    margin-bottom: 25px;
+    margin-top: 0px;
+    margin-bottom: 35px;
   }
 }
 
 @media screen and (min-width: 1200px) {
   .title {
-    font-size: 24px;
-    margin-top: 30px;
-    margin-bottom: 30px;
+    font-size: 28px;
+    margin-top: 45px;
+    margin-bottom: 45px;
   }
 
   .subtitle {
-    font-size: 16px;
+    font-size: 20px;
     margin-bottom: 20px;
-    margin-top: 20px;
+    margin-top: 40px;
   }
 }
