@@ -1,0 +1,28 @@
+.button {
+  font-family: "Roboto-Bold";
+  padding: 10px;
+  border: 1px solid var(--ntrl-max-color);
+  color: var(--ntrl-max-color);
+  text-transform: uppercase;
+  background-color: transparent;
+  width: fit-content;
+}
+
+.button:hover {
+  background-color: var(--secondary-color);
+  border: var(--secondary-color);
+  transform: scale(1.1);
+  transition: all 0.3s ease;
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    padding: 10px 15px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .button {
+    padding: 15px 30px;
+  }
+}
