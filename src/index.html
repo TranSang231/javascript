@@ -1,28 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Meetup</title>
-    <link rel="stylesheet" href="./assets/css/main.css" />
-  </head>
-  <body>
-    <header class="header">
-      <div class="container">
-        <h1 class="heading">Your Events</h1>
-      </div>
-    </header>
-    <main>
-      <section class="meetups">
-        <div class="container">
-          <button class="button btn-create">Add Meetup</button>
 
-          <div class="wrap-meetups">
-            <!-- container meetups -->
-          </div>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Meetup</title>
+  <link rel="stylesheet" href="./assets/css/main.css" />
+</head>
+
+<body>
+  <header class="header">
+    <div class="container">
+      <h1 class="heading">Your Events</h1>
+    </div>
+  </header>
+  <main>
+    <section class="meetups">
+      <div class="container">
+        <button class="button btn-create">Add Meetup</button>
+
+        <div class="wrap-meetups">
+          <!-- container meetups -->
         </div>
-      </section>
-    </main>
-    <script src="./index.js"></script>
-  </body>
+      </div>
+    </section>
+
+    <section class="create-meetup hidden">
+      <div class="background"></div>
+      <div class="wrap-form">
+        <button class="btn-close"></button>
+        <form class="form-meetup" action="">
+          <h2 class="form-title title">Create Meetup</h2>
+
+          <h3 class="subtitle">Speaker Information</h3>
+
+          <label class="label" for="name">Name:</label>
+          <input class="form-control" type="text" name="name" id="name" />
+
+          <label class="label" for="age">Age:</label>
+          <input class="form-control" type="text" name="age" id="age" />
+
+          <label class="label" for="twitter">Twitter:</label>
+          <input class="form-control" type="url" name="twitter" id="twitter" />
+
+          <label class="label" for="avatar">Avatar:</label>
+          <input class="form-control" type="file" accept="images/*" name="avatar" id="avatar" />
+
+          <h3 class="subtitle">Meeting Information</h3>
+
+          <label class="label-" for="topic">Topic:</label>
+          <input class="form-control" type="text" name="topic" id="topic" />
+
+          <label class="label" for="date">Date:</label>
+          <input class="form-control" type="date" name="date" id="date" />
+
+          <label class="label" for="location">Location:</label>
+          <input class="form-control" type="text" name="location" id="location" />
+
+          <label class="label" for="fromtime">Start:</label>
+          <input class="form-control" type="time" name="fromtime" id="fromtime" />
+
+          <label class="label" for="endtime">End:</label>
+          <input class="form-control" type="time" name="endtime" id="endtime" />
+
+          <label class="label" for="note">Note:</label>
+          <textarea class="form-control" name="note" id="note" cols="30" rows="10"></textarea>
+
+          <button class="button btn-create" type="submit">Create</button>
+        </form>
+      </div>
+    </section>
+  </main>
+  <script src="./index.js"></script>
+</body>
+
 </html>
