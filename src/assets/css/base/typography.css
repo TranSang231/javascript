@@ -36,3 +36,8 @@ body {
   font-family: 'Work-Sans';
   src: url("../../fonts/WorkSans-Regular.ttf");
 }
+
+@font-face {
+  font-family: 'Oswald-Regular';
+  src: url("../../fonts/Oswald-Regular.ttf");
+}
