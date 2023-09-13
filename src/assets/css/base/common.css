@@ -1,0 +1,55 @@
+
+.hidden {
+  display: none;
+}
+
+.appear {
+  display: block;
+}
+  
+.background {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  background-color: var(--primary-color);
+  opacity: 0.4;
+  z-index: 1000;
+}
+
+.title {
+  font-family: 'Form';
+  text-transform: uppercase;
+  letter-spacing: -3.5px;
+  font-size: 18px;
+  margin-top: 35px;
+  margin-bottom: 35px;
+}
+
+.subtitle {
+  font-family: 'Work-Sans';
+  font-size: 16px;
+  margin-bottom: 15px;
+  margin-top: 35px;
+}
+
+@media screen and (min-width: 768px) {
+  .title {
+    margin-top: 0px;
+    margin-bottom: 35px;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .title {
+    font-size: 28px;
+    margin-top: 45px;
+    margin-bottom: 45px;
+  }
+
+  .subtitle {
+    font-size: 20px;
+    margin-bottom: 20px;
+    margin-top: 40px;
+  }
+}

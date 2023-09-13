@@ -15,6 +15,43 @@
   transition: all 0.3s ease;
 }
 
+.btn-close {
+  width: 40px;
+  height: 40px;
+  background-color: transparent;
+  align-self: flex-end;
+  flex-shrink: 0;
+  position: relative;
+  padding: 0;
+  border: 0;
+  margin: 10px;
+}
+
+.btn-close:hover {
+  background-color: var(--primary-color);
+  transform: scale(1.1);
+  transition: all 0.4s ease;
+}
+
+.btn-close::before,
+.btn-close::after {
+  content: "";
+  display: block;
+  width: inherit;
+  height: 2px;
+  background-color: var(--ntrl-max-color);
+  position: absolute;
+  top: 50%;
+}
+
+.btn-close::before {
+  transform: rotate(45deg);
+}
+
+.btn-close::after {
+  transform: rotate(-45deg);
+}
+
 @media screen and (min-width: 768px) {
   .button {
     padding: 10px 15px;
