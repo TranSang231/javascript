@@ -82,12 +82,13 @@
     display: inline-block;
     color: var(--quaternary-color);
     padding: 5px 10px;
+    border: 2px solid transparent;
     margin-left: 5px;
+    cursor: pointer;
 }
 
 .topic-card .btn-edit:hover, .btn-delete:hover {
-    border: 2px solid var(--quaternary-color);
-    padding: 3px 8px;
+    border-color: var(--quaternary-color);
     background-color: transparent;
 }
 
@@ -138,10 +139,6 @@
     }
 
     .topic-card .btn-edit, .btn-delete {
-        padding: 10px 15px;
-    }
-
-    .topic-card .btn-edit:hover, .btn-delete:hover{
-        padding: 8px 13px;
+        padding: 8px 10px;
     }
 }
