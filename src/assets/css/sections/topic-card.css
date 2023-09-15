@@ -1,0 +1,144 @@
+.topic-card {
+    width: 300px;
+    min-height: 150px;
+    font-family: 'Oswald-Regular';
+    border-radius: 10px;
+    margin: 20px auto;
+    padding: 10px 0;
+    background-color: var(--ntrl-min-color);
+    display: grid;
+    grid-template-areas: 
+        "avatar heading heading"
+        "avatar content content"
+        "avatar button button";
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.wrap-image {
+    width: 70px;
+    height: 70px;
+    grid-area: avatar;
+    justify-self: center;
+    align-self: center;
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: aliceblue;
+}
+
+.wrap-image .image {
+    width: inherit;
+    height: inherit;
+    object-fit: contain;
+}
+
+.wrap-heading {
+    grid-area: heading;
+    justify-self: flex-end;
+    text-align: center;
+    text-transform: uppercase;
+    margin-right: 20px;
+}
+
+.topic-card .heading {
+    font-size: 18px;
+    font-family: 'Roboto-Medium';
+    letter-spacing: 1px;
+}
+
+.topic-card .sub-heading {
+    color: var(--quaternary-color);
+}
+
+.topic-card .sub-heading .bar {
+    margin: 0 5px;
+    display: inline-block;
+    color: var(--ntrl-max-color);
+}
+
+.topic-card .wrap-content {
+    grid-area: content;
+    justify-self: flex-start;
+    text-transform: uppercase;
+    margin-right: 10px;
+}
+
+.topic-card .content-title {
+    color: var(--quinary-color);
+    margin-bottom: 5px;
+}
+
+.topic-card .content-text {
+    color: var(--ntrl-max-color);
+    margin-left: 5px;
+}
+
+.topic-card .wrap-button {
+    grid-area: button;
+    justify-self: flex-end;
+    margin-right: 20px;
+}
+
+.topic-card .btn-edit, .btn-delete {
+    display: inline-block;
+    color: var(--quaternary-color);
+    padding: 5px 10px;
+    border: 2px solid transparent;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.topic-card .btn-edit:hover, .btn-delete:hover {
+    border-color: var(--quaternary-color);
+    background-color: transparent;
+}
+
+@media screen and (min-width: 768px) {
+    .wrap-meetups {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        margin: 20px auto;
+    }
+
+    .topic-card {
+        margin: 0;
+    }
+}
+
+@media screen and (min-width: 1200px) {
+    .wrap-meetups {
+        grid-template-columns: 1fr 1fr;
+        gap: 30px;
+        margin: 40px auto;
+    }
+
+    .topic-card {
+        width: 480px;
+    }
+    
+    .wrap-image {
+        width: 120px;
+        height: 120px;
+    }
+
+    .wrap-heading {
+        margin-bottom: 5px;
+    }
+
+    .topic-card .heading {
+        font-size: 28px;
+    }
+
+    .topic-card .sub-heading {
+        font-size: 20px;
+    }
+    
+    .topic-card .sub-heading .bar {
+        margin: 0 5px;
+        font-size: 28px;
+    }
+
+    .topic-card .btn-edit, .btn-delete {
+        padding: 8px 10px;
+    }
+}
