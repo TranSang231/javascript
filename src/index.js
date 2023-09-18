@@ -12,16 +12,16 @@ function openForm() {
 }
 
 function closeForm() {
+    const form_meetup = document.querySelector('.form-meetup');
     create_Meetup.classList.add("hidden");
+    form_meetup.reset()
 }
 
 // Modal click outside
-const background = document.querySelector('.background');
-document.body.addEventListener('dblclick', (event) => {
+document.body.addEventListener('click', (event) => {
     const self = event.target.closest('.wrap-form');
-    if (!self) {
-        create_Meetup.classList.remove("appear");
-    }
+    if (event.target == btn_create[0]) openForm();
+    else if (!self) closeForm();
 })
 
 let meetupsApi = 'http://localhost:3000/meetups';
@@ -126,7 +126,6 @@ function handle_Create_Form() {
 
             postMeetup(formDataObj)
                 .then(create_Topic_Card)
-                .then(form_meetup.reset())
                 .then(closeForm);
         })
     }
