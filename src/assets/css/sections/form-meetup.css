@@ -18,6 +18,9 @@
 
 .form-meetup {
   width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   align-self: center;
   font-family: 'Work-Sans';
   color: var(--primary-color);
@@ -60,9 +63,8 @@
   margin-right: 10px;
 }
 
-.form-meetup .btn-create {
-  display: block;
-  margin: 0 auto 20px auto;
+.form-meetup .btn-create, .btn-save {
+  align-self: center;
   background-color: var(--primary-color);
 }
 

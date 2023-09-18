@@ -8,20 +8,39 @@ btn_create[0].addEventListener('click', openForm);
 btn_close.addEventListener('click', closeForm)
 
 function openForm() {
+    const btn_submit = document.querySelector('.wrap-form .btn-create');
+    btn_submit.classList.remove("hidden")
+    create_Meetup.classList.remove("hidden");
+}
+
+function openEditMeetup() {
+    document.querySelector('.form-title').textContent = "Meetup"
+    const btn_save = document.querySelector('.wrap-form .btn-save');
+    btn_save.classList.remove("hidden")
     create_Meetup.classList.remove("hidden");
 }
 
 function closeForm() {
     const form_meetup = document.querySelector('.form-meetup');
+    const btn_submit = document.querySelector('.wrap-form .btn-create');
+    const btn_save = document.querySelector('.wrap-form .btn-save');
+
+    if (!btn_submit.classList.contains("hidden")) {
+        form_meetup.reset()
+        btn_submit.classList.add("hidden");
+    }
+
+    if (!btn_save.classList.contains("hidden")) {
+        btn_save.classList.add("hidden");
+    }
+
     create_Meetup.classList.add("hidden");
-    form_meetup.reset()
 }
 
 // Modal click outside
-document.body.addEventListener('click', (event) => {
+document.querySelector(".background").addEventListener('click', (event) => {
     const self = event.target.closest('.wrap-form');
-    if (event.target == btn_create[0]) openForm();
-    else if (!self) closeForm();
+    if (!self) closeForm();
 })
 
 let meetupsApi = 'http://localhost:3000/meetups';
@@ -30,12 +49,15 @@ function start() {
     getMeetups().then(renderMeetups)
     handle_Create_Form()
     handle_Delete_Meetup()
+    handle_Edit_Meetup()
 }
 start()
 
 // getting data of meetup
-async function getMeetups() {
-    const respone = await fetch(meetupsApi);
+async function getMeetups(id) {
+    let url = meetupsApi;
+    if (id !== undefined) url += '/' + id;
+    const respone = await fetch(url);
 
     if (!respone.ok) {
         const message = `An error has occured: ${respone.status}`;
@@ -85,6 +107,26 @@ async function deleteMeetup(id) {
     return dataMeetup;
 }
 
+// editing data of a meetup 
+async function editMeetup(data, id) {
+    const option = {
+        method: "PUT",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data)
+    }
+    const respone = await fetch(meetupsApi + '/' + id, option);
+
+    if (!respone.ok) {
+        const message = `An error has occured: ${respone.status}`;
+        throw new Error(message);
+    }
+
+    const dataMeetup = respone.json();
+    return dataMeetup;
+}
+
 // render the tozpic cards with Data in db.json
 function renderMeetups(meetups) {
     meetups.map(create_Topic_Card)
@@ -96,7 +138,7 @@ function create_Topic_Card(meetupObj) {
     const card = document.createElement('div');
 
     card.classList = "topic-card";
-    card.setAttribute("id", `topic-card-${meetupObj.id}`); 
+    card.setAttribute("id", `topic-card-${meetupObj.id}`);
     wrap_cards.appendChild(card);
 
     card.innerHTML = `
@@ -128,26 +170,20 @@ function create_Topic_Card(meetupObj) {
 
 // Submit Form - Get Data of Meetup - Create A Topic Card 
 function handle_Create_Form() {
-    const btn_create = document.querySelector('.form-meetup .btn-create');
+    const btn_submit = document.querySelector('.form-meetup .btn-create');
 
-    btn_create.addEventListener('click', submit_Form)
+    btn_submit.addEventListener('click', submit_Form)
 
     function submit_Form() {
-        const form_meetup = document.querySelector('.form-meetup');
-
-        form_meetup.addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            const formDataObj = {};
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach((input) => {
-                formDataObj[input.name] = input.value;
-            })
-
-            postMeetup(formDataObj)
-                .then(create_Topic_Card)
-                .then(closeForm);
+        const formDataObj = {};
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach((input) => {
+            formDataObj[input.name] = input.value;
         })
+
+        postMeetup(formDataObj)
+            .then(create_Topic_Card)
+            .then(closeForm);
     }
 
 }
@@ -160,8 +196,47 @@ function handle_Delete_Meetup() {
         if (event.target.classList.contains('btn-delete')) {
             const card = event.target.parentNode.parentNode;
             const card_Id = card.getAttribute("id").slice(11);
-            
+
             deleteMeetup(card_Id).then(card.remove());
         }
     })
 }   
+
+function handle_Edit_Meetup() {
+    const wrap_cards = document.querySelector('.wrap-topic-cards');
+
+    wrap_cards.addEventListener('click', (event) => {
+        if (event.target.classList.contains('btn-edit')) {
+            const card = event.target.parentNode.parentNode;
+            const card_Id = card.getAttribute("id").slice(11);
+            getMeetups(card_Id)
+                .then(showEditMeetup)
+                .then(updateMeetup)
+        }
+    })
+}
+
+function showEditMeetup(meetup) {
+    openEditMeetup()
+
+    const inputs = document.querySelectorAll('.form-control');
+    inputs.forEach(input => {
+        input.value = meetup[input.name];
+    })
+    return meetup.id;
+}
+
+function updateMeetup(id) {
+    const btn_save = document.querySelector('.form-meetup .btn-save');
+
+    btn_save.addEventListener('click', () => {
+        const formDataObj = {};
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach(input => {
+            formDataObj[input.name] = input.value;
+        })
+
+        editMeetup(formDataObj, id)
+        .then(closeForm)
+    })
+}
