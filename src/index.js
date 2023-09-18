@@ -96,7 +96,7 @@ function create_Topic_Card(meetupObj) {
     const card = document.createElement('div');
 
     card.classList = "topic-card";
-    card.setAttribute("id", `topic-card-${meetupObj.id}`); 
+    card.setAttribute("id", `topic-card-${meetupObj.id}`);
     wrap_cards.appendChild(card);
 
     card.innerHTML = `
@@ -133,21 +133,15 @@ function handle_Create_Form() {
     btn_create.addEventListener('click', submit_Form)
 
     function submit_Form() {
-        const form_meetup = document.querySelector('.form-meetup');
-
-        form_meetup.addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            const formDataObj = {};
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach((input) => {
-                formDataObj[input.name] = input.value;
-            })
-
-            postMeetup(formDataObj)
-                .then(create_Topic_Card)
-                .then(closeForm);
+        const formDataObj = {};
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach((input) => {
+            formDataObj[input.name] = input.value;
         })
+
+        postMeetup(formDataObj)
+            .then(create_Topic_Card)
+            .then(closeForm);
     }
 
 }
@@ -160,7 +154,7 @@ function handle_Delete_Meetup() {
         if (event.target.classList.contains('btn-delete')) {
             const card = event.target.parentNode.parentNode;
             const card_Id = card.getAttribute("id").slice(11);
-            
+
             deleteMeetup(card_Id).then(card.remove());
         }
     })
