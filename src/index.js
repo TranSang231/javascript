@@ -137,13 +137,12 @@ function handle_Create_Form() {
         const inputs = document.querySelectorAll('.form-control');
         inputs.forEach((input) => {
             formDataObj[input.name] = input.value;
-        })
+        })  
 
         postMeetup(formDataObj)
             .then(create_Topic_Card)
             .then(closeForm);
     }
-
 }
 
 // delete Meetup (delete data in db.json and delete UI topic card)
@@ -154,7 +153,6 @@ function handle_Delete_Meetup() {
         if (event.target.classList.contains('btn-delete')) {
             const card = event.target.parentNode.parentNode;
             const card_Id = card.getAttribute("id").slice(11);
-
             deleteMeetup(card_Id).then(card.remove());
         }
     })
