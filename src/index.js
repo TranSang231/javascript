@@ -29,6 +29,7 @@ let meetupsApi = 'http://localhost:3000/meetups';
 function start() {
     getMeetups().then(renderMeetups)
     handle_Create_Form()
+    handle_Delete_Meetup()
 }
 start()
 
@@ -61,11 +62,30 @@ async function postMeetup(data) {
         throw new Error(message);
     }
 
-    const dataMeetups = await response.json();
-    return dataMeetups;
+    const dataMeetup = await response.json();
+    return dataMeetup;
 }
 
-// render the topic cards with Data in db.json
+// delete data of a meetup 
+async function deleteMeetup(id) {
+    const option = {
+        method: "DELETE",
+        headers: {
+            "Content-Type": "application/json"
+        }
+    }
+    const response = await fetch(meetupsApi + '/' + id, option);
+
+    if (!response.ok) {
+        const message = `An error has occured: ${response.status}`
+        throw new Error(message);
+    }
+
+    const dataMeetup = await response.json();
+    return dataMeetup;
+}
+
+// render the tozpic cards with Data in db.json
 function renderMeetups(meetups) {
     meetups.map(create_Topic_Card)
 }
@@ -125,3 +145,17 @@ function handle_Create_Form() {
     }
 
 }
+
+// delete Meetup (delete data in db.json and delete UI topic card)
+function handle_Delete_Meetup() {
+    const wrap_cards = document.querySelector('.wrap-topic-cards')
+
+    wrap_cards.addEventListener('click', (event) => {
+        if (event.target.classList.contains('btn-delete')) {
+            const card = event.target.parentNode.parentNode;
+            const card_Id = card.getAttribute("id").slice(11);
+            
+            deleteMeetup(card_Id).then(card.remove());
+        }
+    })
+}   
