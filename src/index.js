@@ -113,21 +113,15 @@ function handle_Create_Form() {
     btn_create.addEventListener('click', submit_Form)
 
     function submit_Form() {
-        const form_meetup = document.querySelector('.form-meetup');
+        const formDataObj = {};
+        const inputs = document.querySelectorAll('.form-control');
+        inputs.forEach((input) => {
+            formDataObj[input.name] = input.value;
+        })  
 
-        form_meetup.addEventListener('submit', (event) => {
-            event.preventDefault();
-
-            const formDataObj = {};
-            const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach((input) => {
-                formDataObj[input.name] = input.value;
-            })
-
-            postMeetup(formDataObj)
-                .then(create_Topic_Card)
-                .then(closeForm);
-        })
+        postMeetup(formDataObj)
+            .then(create_Topic_Card)
+            .then(closeForm);
     }
 
 }
