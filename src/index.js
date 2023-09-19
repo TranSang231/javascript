@@ -160,3 +160,50 @@ function handle_Delete_Meetup() {
         }
     })
 }   
+
+
+// validation form 
+function validate() {
+    if (document.formMeetup.name.value == "") {
+        alert("Please provide your Name!");
+        document.formMeetup.name.focus();
+        return false;
+    }
+    if (document.formMeetup.age.value == "") {
+        alert("Please provide your Age!");
+        document.formMeetup.age.focus();
+        return false;
+    }
+    if (document.formMeetup.avatar.value == "") {
+        alert("Please provide your Avatar!");
+        document.formMeetup.avatar.focus();
+        return false;
+    }
+    if (document.formMeetup.topic.value == "") {
+        alert("Please provide your Topic Name!");
+        document.formMeetup.topic.focus();
+        return false;
+    }
+    if (document.formMeetup.date.value == "") {
+        alert("Please provide date follow format dd mm yyyy!");
+        document.formMeetup.date.focus();
+        return false;
+    }
+    if (document.formMeetup.location.value == "") {
+        alert("Please provide location!");
+        document.formMeetup.location.focus();
+        return false;
+    }
+    if (document.formMeetup.fromtime.value == "") {
+        alert("Please provide time starting!");
+        document.formMeetup.fromtime.focus();
+        return false;
+    }
+    if (document.formMeetup.endtime.value == "") {
+        alert("Please provide time ending!");
+        document.formMeetup.endtime.focus();
+        return false;
+    }
+    return true;
+
+}
