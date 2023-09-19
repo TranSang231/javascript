@@ -8,12 +8,14 @@ btn_create[0].addEventListener('click', openForm);
 btn_close.addEventListener('click', closeForm)
 
 function openForm() {
+    isEditForm = false;
     const btn_submit = document.querySelector('.wrap-form .btn-create');
     btn_submit.classList.remove("hidden")
     create_Meetup.classList.remove("hidden");
 }
 
 function openEditMeetup() {
+    isEditForm = true;
     document.querySelector('.form-title').textContent = "Meetup"
     const btn_save = document.querySelector('.wrap-form .btn-save');
     btn_save.classList.remove("hidden")
@@ -44,7 +46,7 @@ document.querySelector(".background").addEventListener('click', (event) => {
 })
 
 let meetupsApi = 'http://localhost:3000/meetups';
-
+let isEditForm = true;
 function start() {
     getMeetups().then(renderMeetups)
     handle_Create_Form()
@@ -176,26 +178,27 @@ function create_Topic_Card(meetupObj) {
 
 // Submit Form - Get Data of Meetup - Create A Topic Card 
 function handle_Create_Form() {
-    const btn_submit = document.querySelector('.form-meetup .btn-create');
-
-    // btn_submit.addEventListener('click', submit_Form)
-    const form_meetup = document.querySelector('.form-meetup');
+    console.log(isEditForm)
+    if (!isEditForm) {      
+        console.log(isEditForm)
+        const form_meetup = document.querySelector('.form-meetup');
+        
+        form_meetup.addEventListener('submit', submit_Form)      
     
-    form_meetup.addEventListener('submit', submit_Form)      
-
-    function submit_Form(event) {
-        event.preventDefault();
-
-        const formDataObj = {};
-        const inputs = document.querySelectorAll('.form-control');
-            inputs.forEach((input) => {
-                formDataObj[input.name] = input.value;
-            })
+        function submit_Form(event) {
+            event.preventDefault();
     
-            postMeetup(formDataObj)
-                .then(create_Topic_Card)
-                .then(closeForm);
-        }
+            const formDataObj = {};
+            const inputs = document.querySelectorAll('.form-control');
+                inputs.forEach((input) => {
+                    formDataObj[input.name] = input.value;
+                })
+        
+                postMeetup(formDataObj)
+                    .then(create_Topic_Card)
+                    .then(closeForm);
+            }
+    }
 
 }
 
@@ -220,10 +223,11 @@ function handle_Edit_Meetup() {
         if (event.target.classList.contains('btn-edit')) {
             const card = event.target.parentNode.parentNode;
             const card_Id = card.getAttribute("id").slice(11);
-            getMeetups(card_Id)
-                .then(showEditMeetup)
-                .then(updateMeetup)
-                .then(closeForm()); 
+            if (isEditForm) {
+                getMeetups(card_Id)
+                    .then(showEditMeetup)
+                    .then(updateMeetup)
+            }
         }
     })
 }
@@ -250,6 +254,7 @@ function updateMeetup(id) {
             })
 
             editMeetup(formDataObj, id)
+            .then(closeForm()); 
         }
     })
 }

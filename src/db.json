@@ -1,7 +1,7 @@
 {
   "meetups": [
     {
-      "name": "Tran Van Dinh Sang",
+      "name": "Tran Van Dinh Sang ",
       "age": "19",
       "twitter": "http://twitter.com",
       "avatar": "https://cdn-icons-png.flaticon.com/128/236/236832.png",
@@ -11,33 +11,7 @@
       "fromtime": "16:00",
       "endtime": "20:00",
       "note": "In this meetup, I want to share my experience about how to take care my boss (a cute cat) and talk about our story.",
-      "id": "ALhEq9N"
-    },
-    {
-      "name": "Phillip McClure Jr.",
-      "age": "20",
-      "twitter": "http://twitter.com",
-      "avatar": "https://static.vecteezy.com/system/resources/thumbnails/002/002/403/small/man-with-beard-avatar-character-isolated-icon-free-vector.jpg",
-      "topic": "Social",
-      "date": "2023-09-01",
-      "location": "HCM",
-      "fromtime": "18:20",
-      "endtime": "21:15",
-      "note": "",
       "id": "oAhIx_O"
-    },
-    {
-      "name": "Alfonso Buckridge",
-      "age": "27",
-      "twitter": "http://twitter.com",
-      "avatar": "https://w7.pngwing.com/pngs/340/946/png-transparent-avatar-user-computer-icons-software-developer-avatar-child-face-heroes-thumbnail.png",
-      "topic": "hi",
-      "date": "2023-09-12",
-      "location": "",
-      "fromtime": "18:30",
-      "endtime": "21:30",
-      "note": "",
-      "id": "BnPeybf"
     }
   ]
 }
