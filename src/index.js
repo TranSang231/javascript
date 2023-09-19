@@ -26,7 +26,6 @@ function closeForm() {
     const btn_save = document.querySelector('.wrap-form .btn-save');
 
     if (!btn_submit.classList.contains("hidden")) {
-        form_meetup.reset()
         btn_submit.classList.add("hidden");
     }
 
@@ -34,6 +33,7 @@ function closeForm() {
         btn_save.classList.add("hidden");
     }
 
+    form_meetup.reset()
     create_Meetup.classList.add("hidden");
 }
 
@@ -55,9 +55,15 @@ start()
 
 // getting data of meetup
 async function getMeetups(id) {
+    const option = {
+        method: "GET",
+        headers: {
+            "Content-Type": "application/json",
+        },
+    }
     let url = meetupsApi;
     if (id !== undefined) url += '/' + id;
-    const respone = await fetch(url);
+    const respone = await fetch(url, option);
 
     if (!respone.ok) {
         const message = `An error has occured: ${respone.status}`;
@@ -115,7 +121,7 @@ async function editMeetup(data, id) {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(data)
-    }
+    }    
     const respone = await fetch(meetupsApi + '/' + id, option);
 
     if (!respone.ok) {
@@ -172,19 +178,24 @@ function create_Topic_Card(meetupObj) {
 function handle_Create_Form() {
     const btn_submit = document.querySelector('.form-meetup .btn-create');
 
-    btn_submit.addEventListener('click', submit_Form)
+    // btn_submit.addEventListener('click', submit_Form)
+    const form_meetup = document.querySelector('.form-meetup');
+    
+    form_meetup.addEventListener('submit', submit_Form)      
 
-    function submit_Form() {
+    function submit_Form(event) {
+        event.preventDefault();
+
         const formDataObj = {};
         const inputs = document.querySelectorAll('.form-control');
-        inputs.forEach((input) => {
-            formDataObj[input.name] = input.value;
-        })
-
-        postMeetup(formDataObj)
-            .then(create_Topic_Card)
-            .then(closeForm);
-    }
+            inputs.forEach((input) => {
+                formDataObj[input.name] = input.value;
+            })
+    
+            postMeetup(formDataObj)
+                .then(create_Topic_Card)
+                .then(closeForm);
+        }
 
 }
 
@@ -212,6 +223,7 @@ function handle_Edit_Meetup() {
             getMeetups(card_Id)
                 .then(showEditMeetup)
                 .then(updateMeetup)
+                .then(closeForm()); 
         }
     })
 }
@@ -228,15 +240,16 @@ function showEditMeetup(meetup) {
 
 function updateMeetup(id) {
     const btn_save = document.querySelector('.form-meetup .btn-save');
+    const form_meetup = document.querySelector('.form-meetup')
+    form_meetup.addEventListener('click', (event) => {
+        if (event.target.classList.contains('btn-save')) {
+            const formDataObj = {};
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach(input => {
+                formDataObj[input.name] = input.value;
+            })
 
-    btn_save.addEventListener('click', () => {
-        const formDataObj = {};
-        const inputs = document.querySelectorAll('.form-control');
-        inputs.forEach(input => {
-            formDataObj[input.name] = input.value;
-        })
-
-        editMeetup(formDataObj, id)
-        .then(closeForm)
+            editMeetup(formDataObj, id)
+        }
     })
 }
