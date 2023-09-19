@@ -112,7 +112,7 @@ function create_Topic_Card(meetupObj) {
         <div class="wrap-content">
             <p class="content-title">date & time:<span class="content-text">${meetupObj.date} @ ${meetupObj.fromtime} - ${meetupObj.endtime}</span></p>
             <p class="content-title">guest speaker:<span class="content-text">${meetupObj.name}</span></p>
-            <p class="content-title">twitter address:<span class="content-text">${meetupObj.twitter}</span p>
+            <p class="content-title">twitter address:<a class="content-text" href="http://twitter.com/${meetupObj.twitter}">@${meetupObj.twitter}</a></p>
             <p class="content-title">topic:<span class="content-text">${meetupObj.topic}</span></p>  
         </div>
         <div class="wrap-button">
@@ -128,22 +128,23 @@ function create_Topic_Card(meetupObj) {
 
 // Submit Form - Get Data of Meetup - Create A Topic Card 
 function handle_Create_Form() {
-    const btn_create = document.querySelector('.form-meetup .btn-create');
+    const form_meetup = document.querySelector('.form-meetup');
+    
+    form_meetup.addEventListener('submit', submit_Form)      
 
-    btn_create.addEventListener('click', submit_Form)
+    function submit_Form(event) {
+        event.preventDefault();
 
-    function submit_Form() {
         const formDataObj = {};
         const inputs = document.querySelectorAll('.form-control');
-        inputs.forEach((input) => {
-            formDataObj[input.name] = input.value;
-        })  
-
-        postMeetup(formDataObj)
-            .then(create_Topic_Card)
-            .then(closeForm);
-    }
-
+            inputs.forEach((input) => {
+                formDataObj[input.name] = input.value;
+            })
+    
+            postMeetup(formDataObj)
+                .then(create_Topic_Card)
+                .then(closeForm);
+        }
 }
 
 // delete Meetup (delete data in db.json and delete UI topic card)
