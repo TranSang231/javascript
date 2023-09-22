@@ -52,6 +52,23 @@
   color: var(--primary-color);
 }
 
+.group-form.error .form-control {
+  border-color: var(--error-color);
+}
+
+.group-form small {
+  margin-top: 5px;
+  color: var(--error-color);
+}
+
+.group-form.success input {
+  border-color: var(--success-color);
+}
+
+.group-form small {
+  color: var(--error-color);
+}
+
 .form-meetup input[type="date"]::-webkit-calendar-picker-indicator {
   margin-right: 10px;
 }
