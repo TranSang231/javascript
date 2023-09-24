@@ -78,7 +78,7 @@
   grid-template-columns: repeat(3,1fr);
 }
 
-.form-meetup .btn-create {
+.form-meetup .btn-submit {
   grid-column: 2;
   display: block;
   margin: 0 auto;
