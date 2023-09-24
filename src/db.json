@@ -1,6 +1,9 @@
 {
   "meetups": [
     {
+      "name": "Tran Van Dinh",
+      "age": "19",
+      "twitter": "http://twitter.com",
       "name": "Alfonso Buckridge",
       "age": "24",
       "twitter": "",
@@ -14,17 +17,17 @@
       "id": "1"
     },
     {
-      "name": "Tran Van Dinh Sang",
+      "name": "elonmusk",
       "age": "20",
-      "twitter": "http://twitter.com",
+      "twitter": "elonmusk",
       "avatar": "https://cdn-icons-png.flaticon.com/128/236/236832.png",
       "topic": "Take Care Cat",
       "date": "2023-09-19",
       "location": "Da Nang",
-      "fromtime": "16:00",
-      "endtime": "17:00",
+      "fromtime": "18:00",
+      "endtime": "20:00",
       "note": "In this meetup, I want to share my experience about how to take care my boss (a cute cat) and talk about our story.",
-      "id": "ALhEq9N"
+      "id": "oAhIx_O"
     }
   ]
 }
