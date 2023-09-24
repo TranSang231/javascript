@@ -181,7 +181,7 @@ function create_Topic_Card(meetupObj) {
         <div class="wrap-content">
             <p class="content-title">date & time:<span class="content-text">${meetupObj.date} @ ${meetupObj.fromtime} - ${meetupObj.endtime}</span></p>
             <p class="content-title">guest speaker:<span class="content-text">${meetupObj.name}</span></p>
-            <p class="content-title">twitter address:<span class="content-text">${meetupObj.twitter}</span p>
+            <p class="content-title">twitter address:<a class="content-text" href="http://twitter.com/${meetupObj.twitter}">@${meetupObj.twitter}</a></p>
             <p class="content-title">topic:<span class="content-text">${meetupObj.topic}</span></p>  
         </div>
         <div class="wrap-button">

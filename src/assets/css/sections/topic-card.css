@@ -68,6 +68,7 @@
 }
 
 .topic-card .content-text {
+    text-decoration: none;
     color: var(--ntrl-max-color);
     margin-left: 5px;
 }
