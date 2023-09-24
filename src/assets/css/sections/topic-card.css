@@ -73,6 +73,10 @@
     margin-left: 5px;
 }
 
+.topic-card .content-title:nth-child(3) .content-text{
+    text-transform: initial;
+}
+
 .topic-card .wrap-button {
     grid-area: button;
     justify-self: flex-end;

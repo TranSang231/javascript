@@ -186,7 +186,7 @@ const checkNote = () => {
 }
 
 // API address that contains database
-let meetupsApi = 'http://localhost:3000/meetups';
+let meetupsApi = 'https://65041734c8869921ae247e4d.mockapi.io/meetups/meetups';
 
 
 /* ---------EVENTS LISTENER--------------------------------------------------------------*/
@@ -355,7 +355,7 @@ function updateMeetupCard(meetupObj) {
     card_content.innerHTML = `
     <p class="content-title">date & time:<span class="content-text">${meetupObj.date} @ ${meetupObj.fromtime} - ${meetupObj.endtime}</span></p>
     <p class="content-title">guest speaker:<span class="content-text">${meetupObj.name}</span></p>
-    <p class="content-title">twitter address:<span class="content-text">${meetupObj.twitter}</span p>
+    <p class="content-title">twitter address:<a href="https://twitter.com/${meetupObj.twitter}" class="content-text">@${meetupObj.twitter}</a></p>
     <p class="content-title">topic:<span class="content-text">${meetupObj.topic}</span></p>`
 
     if (meetupObj.twitter === "") {
@@ -453,7 +453,7 @@ function create_Topic_Card(meetupObj) {
         <div class="wrap-content">
             <p class="content-title">date & time:<span class="content-text">${meetupObj.date} @ ${meetupObj.fromtime} - ${meetupObj.endtime}</span></p>
             <p class="content-title">guest speaker:<span class="content-text">${meetupObj.name}</span></p>
-            <p class="content-title">twitter address:<span class="content-text">${meetupObj.twitter}</span p>
+            <p class="content-title">twitter address:<a href="https://twitter.com/${meetupObj.twitter}" class="content-text">@${meetupObj.twitter}</a></p>
             <p class="content-title">topic:<span class="content-text">${meetupObj.topic}</span></p>  
         </div>
         <div class="wrap-button">

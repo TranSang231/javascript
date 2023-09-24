@@ -64,7 +64,7 @@
   color: var(--error-color);
 }
 
-.group-form.success .for {
+.group-form.success .form-control {
   border-color: var(--success-color);
 }
 
