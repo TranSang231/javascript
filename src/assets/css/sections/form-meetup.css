@@ -18,6 +18,9 @@
 
 .form-meetup {
   width: 280px;
+  display: flex;
+  flex-direction: column;
+  align-content: center;
   align-self: center;
   font-family: 'Work-Sans';
   color: var(--primary-color);
