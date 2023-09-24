@@ -1,6 +1,9 @@
 {
   "meetups": [
     {
+      "name": "Tran Van Dinh",
+      "age": "19",
+      "twitter": "http://twitter.com",
       "name": "Alfonso Buckridge",
       "age": "25",
       "twitter": "",
