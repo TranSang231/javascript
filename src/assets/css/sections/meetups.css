@@ -7,3 +7,27 @@
   align-self: flex-end;
   margin-right: 15px;
 }
+
+.meetups .loader {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.meetups .loader::after {
+  content: "";
+  width: 75px;
+  height: 75px;
+  border: 5px solid var(--ntrl-max-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: loading-animation 0.75s ease infinite;
+}
+
+.meetups .hidden-loader {
+  display: none;
+}

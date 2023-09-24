@@ -61,12 +61,8 @@
   color: var(--error-color);
 }
 
-.group-form.success input {
+.group-form.success .for {
   border-color: var(--success-color);
-}
-
-.group-form small {
-  color: var(--error-color);
 }
 
 .form-meetup input[type="date"]::-webkit-calendar-picker-indicator {
@@ -77,10 +73,36 @@
   margin-right: 10px;
 }
 
+.form-meetup .wrap-button {
+  display: grid;
+  grid-template-columns: repeat(3,1fr);
+}
+
 .form-meetup .btn-create {
+  grid-column: 2;
   display: block;
-  margin: 0 auto 20px auto;
+  margin: 0 auto;
   background-color: var(--primary-color);
+}
+
+.form-meetup .loader {
+  grid-column: 3;
+  width: 25px;
+  height: 25px;
+  align-self: center;
+  border: 5px solid var(--ntrl-max-color);
+  border-top-color: var(--primary-color);
+  border-radius: 50%;
+  animation: loading-animation 0.75s ease infinite;
+}
+
+@keyframes loading-animation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }
 
 @media screen and (min-width: 768px) {

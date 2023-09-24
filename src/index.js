@@ -181,6 +181,7 @@ document.querySelector(".background").addEventListener('click', (event) => {
     const self = event.target.closest('.wrap-form');
     if (!self) closeForm();
 })
+
 getMeetups().then(renderMeetups)
 // event open the form 
 btn_create[0].addEventListener('click', openForm);
@@ -218,7 +219,7 @@ form_meetup.addEventListener('input',debounce(function(event) {
         case 'topic':
             checkTopic();
             break;
-        case 'data':
+        case 'date':
             checkDate();
             break;
         case 'location':
@@ -342,6 +343,7 @@ function updateMeetupCard(meetupObj) {
 // submit Data
 function submit_Form(event) {
     event.preventDefault();
+    displayLoading();
     let isUserNameValid = checkUserName(),
         isAgeValid = checkAge(),
         isAvatarValid = checkAvatar(),
@@ -364,23 +366,31 @@ function submit_Form(event) {
 
     if (isFormValid) {
         const card_Id = document.querySelector('.edit-id').value;
-    
-        const formDataObj = {};
-        const inputs = document.querySelectorAll('.form-control');
-        inputs.forEach((input) => {
-            formDataObj[input.name] = input.value;
-        })
-        if (!card_Id) {
-            postMeetup(formDataObj)
+        
+            const formDataObj = {};
+            const inputs = document.querySelectorAll('.form-control');
+            inputs.forEach((input) => {
+                formDataObj[input.name] = input.value;
+            })
+            if (!card_Id) {
+                postMeetup(formDataObj)
                 .then(create_Topic_Card)
-                .then(closeForm);
-        }
-        else {
-            editMeetup(formDataObj, card_Id)
-                .then(() => getMeetups(card_Id))
-                .then(updateMeetupCard)
-                .then(closeForm)
-        }
+                .then(() => hideLoading())
+                .then(() => setTimeout(() => {
+                    alert('Success!');
+                    closeForm();
+                }, 1000));
+            }
+            else {
+                editMeetup(formDataObj, card_Id)
+                    .then(() => getMeetups(card_Id))
+                    .then(updateMeetupCard)
+                    .then(() => hideLoading())
+                    .then(() => setTimeout(() => {
+                        alert('Success!');
+                        closeForm();
+                    }, 1000));
+            }
     }
 }
 
@@ -449,7 +459,33 @@ function openEditMeetup() {
 }
 
 function closeForm() {
-    const form_meetup = document.querySelector('.form-meetup');
+    const form_controls = document.querySelectorAll('.form-control');
+    form_controls.forEach((input) => {
+        const group_form = input.parentNode;
+        if (group_form.classList.contains('error')) group_form.classList.remove('error');
+        if (group_form.classList.contains('success')) group_form.classList.remove('success');
+    })
     form_meetup.reset()
     create_Meetup.classList.add("hidden");
 }
+
+const button_submit = document.querySelector(".wrap-form .btn-create")
+
+const loader = form_meetup.querySelector(".form-meetup .loader");
+
+function displayLoading() {
+    loader.classList.remove('hidden');
+    setTimeout(() => {
+        loader.classList.add('hidden');
+    }, 1000);
+}
+
+function hideLoading() {
+    loader.classList.add('hidden');
+}
+
+const meetups = document.querySelector('.meetups');
+window.addEventListener('load', () => {
+    const loader = meetups.querySelector('.loader');
+    loader.classList.add("hidden-loader");
+})
