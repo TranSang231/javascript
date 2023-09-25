@@ -469,13 +469,13 @@ function createMeetupCard(meetupObj) {
 
 // open a creating form
 function openCreateForm() {
-    buttonSubmit.textContent = "Create"
+    buttonSubmit.children[0].textContent = "Create"
     createMeetupForm.classList.remove("hidden");
 }
 
 // open a editing form
 function openEditForm() {
-    buttonSubmit.textContent = "Save"
+    buttonSubmit.children[0].textContent = "Save"
     meetupForm.querySelector('.form-title').textContent = "Meetup"
     createMeetupForm.classList.remove("hidden");
 }
@@ -495,17 +495,18 @@ function closeForm() {
 }
 
 // loading indicator when click submit button
-const loader = meetupForm.querySelector(".form-meetup .loader");
-
 function displayLoading() {
-    loader.classList.remove('hidden');
+    buttonSubmit.classList.add('btn-loading');
+    buttonSubmit.setAttribute('disabled', '');
     setTimeout(() => {
-        loader.classList.add('hidden');
-    }, 1000);
+        buttonSubmit.classList.remove('btn-loading');
+        buttonSubmit.removeAttribute('disabled');
+    }, 3000);
 }
 
 function hideLoading() {
-    loader.classList.add('hidden');
+    buttonSubmit.classList.remove('btn-loading');
+    buttonSubmit.removeAttribute('disabled');
 }
 
 // loading indicator when load a page

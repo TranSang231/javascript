@@ -76,24 +76,35 @@
   margin-right: 10px;
 }
 
-.form-meetup .wrap-button {
-  display: grid;
-  grid-template-columns: repeat(3,1fr);
-}
-
 .form-meetup .btn-submit {
-  grid-column: 2;
+  position: relative;
   display: block;
   margin: 0 auto;
   background-color: var(--primary-color);
 }
 
-.form-meetup .loader {
-  grid-column: 3;
-  width: 25px;
-  height: 25px;
+.form-meetup .btn-submit .button-text {
+  transition: 0.2 all;
+}
+
+.form-meetup .btn-loading .button-text {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.btn-loading::after {
+  content: "";
+  display: inen;
+  position: absolute; 
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  width: 15px;
+  height: 15px;
   align-self: center;
-  border: 5px solid var(--ntrl-max-color);
+  border: 3px solid var(--ntrl-max-color);
   border-top-color: var(--primary-color);
   border-radius: 50%;
   animation: loading-animation 0.75s ease infinite;
@@ -137,9 +148,23 @@
     padding-bottom: 6px;
   }
 
+  .group-form {
+    margin-bottom: 25px;
+  }
+
   .form-meetup .form-control {
     font-size: 16px;
     padding: 12px 10px;
-    margin-bottom: 15px;
+  }
+
+  .group-form small {
+    font-size: 13px;
+  }
+  
+  .btn-loading::after {
+    width: 25px;
+    height: 25px;
+    border: 5px solid var(--ntrl-max-color);
+    border-top-color: var(--primary-color);
   }
 }
