@@ -1,26 +1,26 @@
 // selecting main content
 const meetups = document.querySelector('.meetups');
-const create_Meetup = document.querySelector('.create-meetup');
+const createMeetup = document.querySelector('.create-meetup');
 
 // selecting meetup cards wrapper
-const wrap_cards = meetups.querySelector('.wrap-topic-cards')
+const wrapCards = meetups.querySelector('.wrap-topic-cards')
 
 // selecting form and its elements
-const form_meetup = create_Meetup.querySelector('.form-meetup');
-const userNameEl = form_meetup.querySelector('#name')
-const ageEl = form_meetup.querySelector('#age')
-const topicEl = form_meetup.querySelector('#topic')
-const avatarEl = form_meetup.querySelector('#avatar')
-const dateEl = form_meetup.querySelector('#date')
-const locationEl = form_meetup.querySelector('#location')
-const fromtimeEl = form_meetup.querySelector('#fromtime')
-const endtimeEl = form_meetup.querySelector('#endtime')
-const noteEl = form_meetup.querySelector('#note')
+const formMeetup = createMeetup.querySelector('.form-meetup');
+const userNameEl = formMeetup.querySelector('#name')
+const ageEl = formMeetup.querySelector('#age')
+const topicEl = formMeetup.querySelector('#topic')
+const avatarEl = formMeetup.querySelector('#avatar')
+const dateEl = formMeetup.querySelector('#date')
+const locationEl = formMeetup.querySelector('#location')
+const fromtimeEl = formMeetup.querySelector('#fromtime')
+const endtimeEl = formMeetup.querySelector('#endtime')
+const noteEl = formMeetup.querySelector('#note')
 
 // selecting buttons 
-const btn_create = meetups.querySelector('.btn-create');
-const btn_close = create_Meetup.querySelector('.wrap-form .btn-close')
-const button_submit = form_meetup.querySelector(".btn-submit")
+const btnCreate = meetups.querySelector('.btn-create');
+const btnClose = createMeetup.querySelector('.wrap-form .btn-close')
+const buttonSubmit = formMeetup.querySelector(".btn-submit")
 
 // function to check if inputs is required
 const isRequired = (value) => value === '' ? false : true;
@@ -29,22 +29,22 @@ const isBetween = (length, min, max) => length < min || length > max ? false : t
 
 // show error signal if inputs are invalid
 const showError = (input, message) => {
-    const group_form = input.parentNode;
+    const groupForm = input.parentNode;
 
-    group_form.classList.remove('success');
-    group_form.classList.add('error');
+    groupForm.classList.remove('success');
+    groupForm.classList.add('error');
 
-    const error = group_form.querySelector('small');
+    const error = groupForm.querySelector('small');
     error.textContent = message
 }
 // show success signal if inputs are valid
 const showSuccess = (input) => {
-    const group_form = input.parentElement;
+    const groupForm = input.parentElement;
 
-    group_form.classList.remove('error');
-    group_form.classList.add('success');
+    groupForm.classList.remove('error');
+    groupForm.classList.add('success');
 
-    const error = group_form.querySelector('small');
+    const error = groupForm.querySelector('small');
     error.textContent = '';
 }
 
@@ -193,35 +193,35 @@ let meetupsApi = 'https://65041734c8869921ae247e4d.mockapi.io/meetups/meetups';
 // render topic cards when load page
 getMeetups().then(renderMeetups)
 // close form when click button close
-btn_close.addEventListener('click', closeForm)
+btnClose.addEventListener('click', closeForm)
 // close form when click outside form
-create_Meetup.querySelector(".background").addEventListener('click', (event) => {
+createMeetup.querySelector(".background").addEventListener('click', (event) => {
     const self = event.target.closest('.wrap-form');
     if (!self) closeForm();
 })
 // open the form when click button create 
-btn_create.addEventListener('click', openForm);
+btnCreate.addEventListener('click', openForm);
 // submit form meetup when click submit button
-form_meetup.addEventListener('submit', submit_Form)
+formMeetup.addEventListener('submit', submitForm)
 // delete or editing a meetup when click button delete or edit 
-wrap_cards.addEventListener('click', (event) => {
+wrapCards.addEventListener('click', (event) => {
     if (event.target.matches('.btn-delete')) {
         const card = event.target.parentNode.parentNode;
-        const card_Id = card.getAttribute("id").slice(11);
+        const cardId = card.getAttribute("id").slice(11);
 
-        deleteMeetup(card_Id).then(card.remove());
+        deleteMeetup(cardId).then(card.remove());
     }
 
     if (event.target.classList.contains('btn-edit')) {
         const card = event.target.parentNode.parentNode;
-        const card_Id = card.getAttribute("id").slice(11);
+        const cardId = card.getAttribute("id").slice(11);
         openEditMeetup();
-        getMeetups(card_Id)
+        getMeetups(cardId)
             .then(pushDataIntoMeetup)
     }
 })
 // check inputs valid or invalid (while typing) before submit 
-form_meetup.addEventListener('input', debounce(function(event) {
+formMeetup.addEventListener('input', debounce(function (event) {
     switch (event.target.id) {
         case 'name':
             checkUserName();
@@ -249,7 +249,7 @@ form_meetup.addEventListener('input', debounce(function(event) {
             break;
         case 'note':
             checkNote();
-            break;   
+            break;
     }
 }, 1000))
 
@@ -338,12 +338,12 @@ async function editMeetup(data, id) {
 /* -----------FUNCTIONS-----------------------------------------------------------*/
 // render the tozpic cards with Data in db.json
 function renderMeetups(meetups) {
-    meetups.map(create_Topic_Card)
+    meetups.map(createTopicCard)
 }
 
 // push data from db.json to form edit 
 function pushDataIntoMeetup(meetup) {
-    const inputs = create_Meetup.querySelectorAll('.form-control');
+    const inputs = createMeetup.querySelectorAll('.form-control');
     inputs.forEach(input => {
         input.value = meetup[input.name];
     })
@@ -351,20 +351,20 @@ function pushDataIntoMeetup(meetup) {
 
 // updata data of meetup card after editing
 function updateMeetupCard(meetupObj) {
-    const card_content = wrap_cards.querySelector(`#topic-card-${meetupObj.id} .wrap-content`);
-    card_content.innerHTML = `
+    const cardContent = wrapCards.querySelector(`#topic-card-${meetupObj.id} .wrap-content`);
+    cardContent.innerHTML = `
     <p class="content-title">date & time:<span class="content-text">${meetupObj.date} @ ${meetupObj.fromtime} - ${meetupObj.endtime}</span></p>
     <p class="content-title">guest speaker:<span class="content-text">${meetupObj.name}</span></p>
     <p class="content-title">twitter address:<a href="https://twitter.com/${meetupObj.twitter}" class="content-text">@${meetupObj.twitter}</a></p>
     <p class="content-title">topic:<span class="content-text">${meetupObj.topic}</span></p>`
 
     if (meetupObj.twitter === "") {
-        wrap_cards.querySelector(`#topic-card-${meetupObj.id} .content-title:nth-child(3)`).classList.add("hidden");
+        wrapCards.querySelector(`#topic-card-${meetupObj.id} .content-title:nth-child(3)`).classList.add("hidden");
     }
 }
 
 // check and submit form
-function submit_Form(event) {
+function submitForm(event) {
     event.preventDefault();
     displayLoading();
     let isUserNameValid = checkUserName(),
@@ -376,7 +376,7 @@ function submit_Form(event) {
         isStartTimeValid = checkStartTime(),
         isEndTimeValid = checkEndTime(),
         isNoteValid = checkNote();
-    
+
     let isFormValid = isUserNameValid &&
         isAgeValid &&
         isAvatarValid &&
@@ -388,32 +388,32 @@ function submit_Form(event) {
         isNoteValid;
 
     if (isFormValid) {
-        const card_Id = form_meetup.querySelector('.meetup-id').value;
-        
-            const formDataObj = {};
-            const inputs = form_meetup.querySelectorAll('.form-control');
-            inputs.forEach((input) => {
-                formDataObj[input.name] = input.value;
-            })
-            if (!card_Id) {
-                postMeetup(formDataObj)
-                .then(create_Topic_Card)
+        const cardId = formMeetup.querySelector('.meetup-id').value;
+
+        const formDataObj = {};
+        const inputs = formMeetup.querySelectorAll('.form-control');
+        inputs.forEach((input) => {
+            formDataObj[input.name] = input.value;
+        })
+        if (!cardId) {
+            postMeetup(formDataObj)
+                .then(createTopicCard)
                 .then(() => hideLoading())
                 .then(() => setTimeout(() => {
                     alert('Success!');
                     closeForm();
                 }, 1000));
-            }
-            else {
-                editMeetup(formDataObj, card_Id)
-                    .then(() => getMeetups(card_Id))
-                    .then(updateMeetupCard)
-                    .then(() => hideLoading())
-                    .then(() => setTimeout(() => {
-                        alert('Success!');
-                        closeForm();
-                    }, 1000));
-            }
+        }
+        else {
+            editMeetup(formDataObj, cardId)
+                .then(() => getMeetups(cardId))
+                .then(updateMeetupCard)
+                .then(() => hideLoading())
+                .then(() => setTimeout(() => {
+                    alert('Success!');
+                    closeForm();
+                }, 1000));
+        }
     }
 }
 
@@ -433,12 +433,12 @@ function debounce(func, delay) {
 }
 
 // create Topic Card 
-function create_Topic_Card(meetupObj) {
+function createTopicCard(meetupObj) {
     const card = document.createElement('div');
 
     card.classList = "topic-card";
     card.setAttribute("id", `topic-card-${meetupObj.id}`);
-    wrap_cards.appendChild(card);
+    wrapCards.appendChild(card);
 
     card.innerHTML = `
         <div class="wrap-image">
@@ -463,39 +463,39 @@ function create_Topic_Card(meetupObj) {
     `
     // check if do not have twitter data, hidden twitter in topic card  
     if (meetupObj.twitter === "") {
-        wrap_cards.querySelector(`#topic-card-${meetupObj.id} .content-title:nth-child(3)`).classList.add("hidden");
+        wrapCards.querySelector(`#topic-card-${meetupObj.id} .content-title:nth-child(3)`).classList.add("hidden");
     }
 }
 
 // open a creating form
 function openForm() {
-    button_submit.textContent = "Create"
-    create_Meetup.classList.remove("hidden");
+    buttonSubmit.textContent = "Create"
+    createMeetup.classList.remove("hidden");
 }
 
 // open a editing form
 function openEditMeetup() {
-    button_submit.textContent = "Save"
-    form_meetup.querySelector('.form-title').textContent = "Meetup"
-    create_Meetup.classList.remove("hidden");
+    buttonSubmit.textContent = "Save"
+    formMeetup.querySelector('.form-title').textContent = "Meetup"
+    createMeetup.classList.remove("hidden");
 }
 
 // close a form
 function closeForm() {
-    const form_controls = form_meetup.querySelectorAll('.form-control');
-    form_controls.forEach((input) => {
-        const group_form = input.parentNode;
-        const error = group_form.querySelector('small');
+    const formControls = formMeetup.querySelectorAll('.form-control');
+    formControls.forEach((input) => {
+        const groupForm = input.parentNode;
+        const error = groupForm.querySelector('small');
         error.textContent = '';
-        if (group_form.classList.contains('error')) group_form.classList.remove('error');
-        if (group_form.classList.contains('success')) group_form.classList.remove('success');
+        if (groupForm.classList.contains('error')) groupForm.classList.remove('error');
+        if (groupForm.classList.contains('success')) groupForm.classList.remove('success');
     })
-    form_meetup.reset()
-    create_Meetup.classList.add("hidden");
+    formMeetup.reset()
+    createMeetup.classList.add("hidden");
 }
 
 // loading indicator when click submit button
-const loader = form_meetup.querySelector(".form-meetup .loader");
+const loader = formMeetup.querySelector(".form-meetup .loader");
 
 function displayLoading() {
     loader.classList.remove('hidden');
@@ -503,6 +503,7 @@ function displayLoading() {
         loader.classList.add('hidden');
     }, 1000);
 }
+
 function hideLoading() {
     loader.classList.add('hidden');
 }
