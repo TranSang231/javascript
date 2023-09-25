@@ -1,26 +1,26 @@
 // selecting main content
 const meetups = document.querySelector('.meetups');
-const createMeetup = document.querySelector('.create-meetup');
+const createMeetupForm = document.querySelector('.create-meetup');
 
 // selecting meetup cards wrapper
 const wrapCards = meetups.querySelector('.wrap-topic-cards')
 
 // selecting form and its elements
-const formMeetup = createMeetup.querySelector('.form-meetup');
-const userNameEl = formMeetup.querySelector('#name')
-const ageEl = formMeetup.querySelector('#age')
-const topicEl = formMeetup.querySelector('#topic')
-const avatarEl = formMeetup.querySelector('#avatar')
-const dateEl = formMeetup.querySelector('#date')
-const locationEl = formMeetup.querySelector('#location')
-const fromtimeEl = formMeetup.querySelector('#fromtime')
-const endtimeEl = formMeetup.querySelector('#endtime')
-const noteEl = formMeetup.querySelector('#note')
+const meetupForm = createMeetupForm.querySelector('.form-meetup');
+const userNameEl = meetupForm.querySelector('#name')
+const ageEl = meetupForm.querySelector('#age')
+const topicEl = meetupForm.querySelector('#topic')
+const avatarEl = meetupForm.querySelector('#avatar')
+const dateEl = meetupForm.querySelector('#date')
+const locationEl = meetupForm.querySelector('#location')
+const fromtimeEl = meetupForm.querySelector('#fromtime')
+const endtimeEl = meetupForm.querySelector('#endtime')
+const noteEl = meetupForm.querySelector('#note')
 
 // selecting buttons 
 const btnCreate = meetups.querySelector('.btn-create');
-const btnClose = createMeetup.querySelector('.wrap-form .btn-close')
-const buttonSubmit = formMeetup.querySelector(".btn-submit")
+const btnClose = createMeetupForm.querySelector('.wrap-form .btn-close')
+const buttonSubmit = meetupForm.querySelector(".btn-submit")
 
 // function to check if inputs is required
 const isRequired = (value) => value === '' ? false : true;
@@ -191,37 +191,37 @@ let meetupsApi = 'https://65041734c8869921ae247e4d.mockapi.io/meetups/meetups';
 
 /* ---------EVENTS LISTENER--------------------------------------------------------------*/
 // render topic cards when load page
-getMeetups().then(renderMeetups)
+fetchMeetups().then(renderMeetupCards)
 // close form when click button close
 btnClose.addEventListener('click', closeForm)
 // close form when click outside form
-createMeetup.querySelector(".background").addEventListener('click', (event) => {
+createMeetupForm.querySelector(".background").addEventListener('click', (event) => {
     const self = event.target.closest('.wrap-form');
     if (!self) closeForm();
 })
 // open the form when click button create 
-btnCreate.addEventListener('click', openForm);
+btnCreate.addEventListener('click', openCreateForm);
 // submit form meetup when click submit button
-formMeetup.addEventListener('submit', submitForm)
+meetupForm.addEventListener('submit', handleSubmitForm)
 // delete or editing a meetup when click button delete or edit 
 wrapCards.addEventListener('click', (event) => {
     if (event.target.matches('.btn-delete')) {
         const card = event.target.parentNode.parentNode;
         const cardId = card.getAttribute("id").slice(11);
 
-        deleteMeetup(cardId).then(card.remove());
+        deleteMeetupData(cardId).then(card.remove());
     }
 
     if (event.target.classList.contains('btn-edit')) {
         const card = event.target.parentNode.parentNode;
         const cardId = card.getAttribute("id").slice(11);
-        openEditMeetup();
-        getMeetups(cardId)
-            .then(pushDataIntoMeetup)
+        openEditForm();
+        fetchMeetups(cardId)
+            .then(polulateFormWithData)
     }
 })
 // check inputs valid or invalid (while typing) before submit 
-formMeetup.addEventListener('input', debounce(function (event) {
+meetupForm.addEventListener('input', debounce(function (event) {
     switch (event.target.id) {
         case 'name':
             checkUserName();
@@ -255,7 +255,7 @@ formMeetup.addEventListener('input', debounce(function (event) {
 
 /* -----------FETCH API-----------------------------------------------------*/
 // getting data of meetup
-async function getMeetups(id) {
+async function fetchMeetups(id) {
     const option = {
         method: "GET",
         headers: {
@@ -276,7 +276,7 @@ async function getMeetups(id) {
 }
 
 // posting data of meetup
-async function postMeetup(data) {
+async function postMeetupData(data) {
     const option = {
         method: "POST",
         headers: {
@@ -296,7 +296,7 @@ async function postMeetup(data) {
 }
 
 // delete data of a meetup 
-async function deleteMeetup(id) {
+async function deleteMeetupData(id) {
     const option = {
         method: "DELETE",
         headers: {
@@ -315,7 +315,7 @@ async function deleteMeetup(id) {
 }
 
 // editing data of a meetup 
-async function editMeetup(data, id) {
+async function editMeetupData(data, id) {
     const option = {
         method: "PUT",
         headers: {
@@ -337,20 +337,20 @@ async function editMeetup(data, id) {
 
 /* -----------FUNCTIONS-----------------------------------------------------------*/
 // render the tozpic cards with Data in db.json
-function renderMeetups(meetups) {
-    meetups.map(createTopicCard)
+function renderMeetupCards(meetups) {
+    meetups.map(createMeetupCard)
 }
 
 // push data from db.json to form edit 
-function pushDataIntoMeetup(meetup) {
-    const inputs = createMeetup.querySelectorAll('.form-control');
+function polulateFormWithData(meetup) {
+    const inputs = createMeetupForm.querySelectorAll('.form-control');
     inputs.forEach(input => {
         input.value = meetup[input.name];
     })
 }
 
 // updata data of meetup card after editing
-function updateMeetupCard(meetupObj) {
+function updateCardData(meetupObj) {
     const cardContent = wrapCards.querySelector(`#topic-card-${meetupObj.id} .wrap-content`);
     cardContent.innerHTML = `
     <p class="content-title">date & time:<span class="content-text">${meetupObj.date} @ ${meetupObj.fromtime} - ${meetupObj.endtime}</span></p>
@@ -364,7 +364,7 @@ function updateMeetupCard(meetupObj) {
 }
 
 // check and submit form
-function submitForm(event) {
+function handleSubmitForm(event) {
     event.preventDefault();
     displayLoading();
     let isUserNameValid = checkUserName(),
@@ -388,16 +388,16 @@ function submitForm(event) {
         isNoteValid;
 
     if (isFormValid) {
-        const cardId = formMeetup.querySelector('.meetup-id').value;
+        const cardId = meetupForm.querySelector('.meetup-id').value;
 
         const formDataObj = {};
-        const inputs = formMeetup.querySelectorAll('.form-control');
+        const inputs = meetupForm.querySelectorAll('.form-control');
         inputs.forEach((input) => {
             formDataObj[input.name] = input.value;
         })
         if (!cardId) {
-            postMeetup(formDataObj)
-                .then(createTopicCard)
+            postMeetupData(formDataObj)
+                .then(createMeetupCard)
                 .then(() => hideLoading())
                 .then(() => setTimeout(() => {
                     alert('Success!');
@@ -405,9 +405,9 @@ function submitForm(event) {
                 }, 1000));
         }
         else {
-            editMeetup(formDataObj, cardId)
-                .then(() => getMeetups(cardId))
-                .then(updateMeetupCard)
+            editMeetupData(formDataObj, cardId)
+                .then(() => fetchMeetups(cardId))
+                .then(updateCardData)
                 .then(() => hideLoading())
                 .then(() => setTimeout(() => {
                     alert('Success!');
@@ -433,7 +433,7 @@ function debounce(func, delay) {
 }
 
 // create Topic Card 
-function createTopicCard(meetupObj) {
+function createMeetupCard(meetupObj) {
     const card = document.createElement('div');
 
     card.classList = "topic-card";
@@ -468,21 +468,21 @@ function createTopicCard(meetupObj) {
 }
 
 // open a creating form
-function openForm() {
+function openCreateForm() {
     buttonSubmit.textContent = "Create"
-    createMeetup.classList.remove("hidden");
+    createMeetupForm.classList.remove("hidden");
 }
 
 // open a editing form
-function openEditMeetup() {
+function openEditForm() {
     buttonSubmit.textContent = "Save"
-    formMeetup.querySelector('.form-title').textContent = "Meetup"
-    createMeetup.classList.remove("hidden");
+    meetupForm.querySelector('.form-title').textContent = "Meetup"
+    createMeetupForm.classList.remove("hidden");
 }
 
 // close a form
 function closeForm() {
-    const formControls = formMeetup.querySelectorAll('.form-control');
+    const formControls = meetupForm.querySelectorAll('.form-control');
     formControls.forEach((input) => {
         const groupForm = input.parentNode;
         const error = groupForm.querySelector('small');
@@ -490,12 +490,12 @@ function closeForm() {
         if (groupForm.classList.contains('error')) groupForm.classList.remove('error');
         if (groupForm.classList.contains('success')) groupForm.classList.remove('success');
     })
-    formMeetup.reset()
-    createMeetup.classList.add("hidden");
+    meetupForm.reset()
+    createMeetupForm.classList.add("hidden");
 }
 
 // loading indicator when click submit button
-const loader = formMeetup.querySelector(".form-meetup .loader");
+const loader = meetupForm.querySelector(".form-meetup .loader");
 
 function displayLoading() {
     loader.classList.remove('hidden');
