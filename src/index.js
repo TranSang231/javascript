@@ -221,7 +221,7 @@ wrap_cards.addEventListener('click', (event) => {
     }
 })
 // check inputs valid or invalid (while typing) before submit 
-form_meetup.addEventListener('input',debounce(function(event) {
+form_meetup.addEventListener('input', debounce(function(event) {
     switch (event.target.id) {
         case 'name':
             checkUserName();
@@ -251,7 +251,7 @@ form_meetup.addEventListener('input',debounce(function(event) {
             checkNote();
             break;   
     }
-}))
+}, 1000))
 
 /* -----------FETCH API-----------------------------------------------------*/
 // getting data of meetup
@@ -417,19 +417,19 @@ function submit_Form(event) {
     }
 }
 
-function debounce(fn, ms) {
-	let timer;
-	
-	return function() {
-		const args = arguments;
-		const context = this;
-		
-		if(timer) clearTimeout(timer);
-		
-		timer = setTimeout(() => {
-			fn.apply(context, args);
-		}, ms)
-	}
+function debounce(func, delay) {
+    let timeout;
+
+    return function executedFunc(...args) {
+        if (timeout) {
+            clearTimeout(timeout);
+        }
+
+        timeout = setTimeout(() => {
+            func(...args);
+            timeout = null;
+        }, delay);
+    };
 }
 
 // create Topic Card 
