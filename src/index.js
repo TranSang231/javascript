@@ -398,7 +398,10 @@ function handleSubmitForm(event) {
         if (!cardId) {
             postMeetupData(formDataObj)
                 .then(createMeetupCard)
-                .then(() => hideLoading())
+                .then(() => {
+                    meetupForm.reset()
+                    hideLoading()
+                })
                 .then(() => setTimeout(() => {
                     alert('Success!');
                     closeForm();
@@ -408,7 +411,10 @@ function handleSubmitForm(event) {
             editMeetupData(formDataObj, cardId)
                 .then(() => fetchMeetups(cardId))
                 .then(updateCardData)
-                .then(() => hideLoading())
+                .then(() => {
+                    meetupForm.reset()
+                    hideLoading()
+                })
                 .then(() => setTimeout(() => {
                     alert('Success!');
                     closeForm();
@@ -490,7 +496,6 @@ function closeForm() {
         if (groupForm.classList.contains('error')) groupForm.classList.remove('error');
         if (groupForm.classList.contains('success')) groupForm.classList.remove('success');
     })
-    meetupForm.reset()
     createMeetupForm.classList.add("hidden");
 }
 

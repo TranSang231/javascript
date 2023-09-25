@@ -88,26 +88,28 @@
 }
 
 .form-meetup .btn-loading .button-text {
-  visibility: hidden;
-  opacity: 0;
+  display: none;
 }
 
 .btn-loading::after {
   content: "";
-  display: inen;
   position: absolute; 
   top: 0;
-  left: 0;
-  right: 0;
+  left: 10px;
   bottom: 0;
   margin: auto;
-  width: 15px;
-  height: 15px;
+  width: 10px;
+  height: 10px;
   align-self: center;
   border: 3px solid var(--ntrl-max-color);
   border-top-color: var(--primary-color);
   border-radius: 50%;
   animation: loading-animation 0.75s ease infinite;
+}
+
+.btn-loading::before {
+  content: "Loading...";
+  padding-left: 25px;
 }
 
 @keyframes loading-animation {
@@ -160,11 +162,12 @@
   .group-form small {
     font-size: 13px;
   }
-  
   .btn-loading::after {
-    width: 25px;
-    height: 25px;
-    border: 5px solid var(--ntrl-max-color);
-    border-top-color: var(--primary-color);
+    width: 15px;
+    height: 15px;
   }
+  .btn-loading::before {
+    padding-left: 10px;
+    font-size: 16px;
+  } 
 }
