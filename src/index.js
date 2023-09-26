@@ -191,7 +191,9 @@ let meetupsApi = 'https://65041734c8869921ae247e4d.mockapi.io/meetups/meetups';
 
 /* ---------EVENTS LISTENER--------------------------------------------------------------*/
 // render topic cards when load page
-fetchMeetups().then(renderMeetupCards)
+fetchMeetups()
+    .then(renderMeetupCards)
+    .then(hideLoadingMeetupCard);
 // close form when click button close
 btnClose.addEventListener('click', closeForm)
 // close form when click outside form
@@ -215,9 +217,12 @@ wrapCards.addEventListener('click', (event) => {
     if (event.target.classList.contains('btn-edit')) {
         const card = event.target.parentNode.parentNode;
         const cardId = card.getAttribute("id").slice(11);
-        openEditForm();
-        fetchMeetups(cardId)
+        fetchMeetups(cardId)    
             .then(polulateFormWithData)
+            .then(() => {
+                openEditForm();
+                enabledSubmitButton();
+            });
     }
 })
 // check inputs valid or invalid (while typing) before submit 
@@ -343,6 +348,7 @@ function renderMeetupCards(meetups) {
 
 // push data from db.json to form edit 
 function polulateFormWithData(meetup) {
+    disabledSubmitButton();
     const inputs = createMeetupForm.querySelectorAll('.form-control');
     inputs.forEach(input => {
         input.value = meetup[input.name];
@@ -399,26 +405,25 @@ function handleSubmitForm(event) {
             postMeetupData(formDataObj)
                 .then(createMeetupCard)
                 .then(() => {
-                    meetupForm.reset()
-                    hideLoading()
+                    meetupForm.reset();
+                    return hideLoading();
                 })
-                .then(() => setTimeout(() => {
+                .then(() => {
                     alert('Success!');
                     closeForm();
-                }, 1000));
+                });
         }
         else {
             editMeetupData(formDataObj, cardId)
-                .then(() => fetchMeetups(cardId))
                 .then(updateCardData)
+                .then(meetupForm.reset())
                 .then(() => {
-                    meetupForm.reset()
-                    hideLoading()
+                    return hideLoading();
                 })
-                .then(() => setTimeout(() => {
+                .then(() => {
                     alert('Success!');
                     closeForm();
-                }, 1000));
+                });
         }
     }
 }
@@ -489,6 +494,7 @@ function openEditForm() {
 // close a form
 function closeForm() {
     const formControls = meetupForm.querySelectorAll('.form-control');
+    meetupForm.reset();
     formControls.forEach((input) => {
         const groupForm = input.parentNode;
         const error = groupForm.querySelector('small');
@@ -502,20 +508,32 @@ function closeForm() {
 // loading indicator when click submit button
 function displayLoading() {
     buttonSubmit.classList.add('btn-loading');
-    buttonSubmit.setAttribute('disabled', '');
+    disabledSubmitButton();
     setTimeout(() => {
-        buttonSubmit.classList.remove('btn-loading');
-        buttonSubmit.removeAttribute('disabled');
+        hideLoading();
     }, 3000);
 }
 
 function hideLoading() {
-    buttonSubmit.classList.remove('btn-loading');
-    buttonSubmit.removeAttribute('disabled');
+    return new Promise((resolve) => {
+        buttonSubmit.classList.remove('btn-loading');
+        enabledSubmitButton();
+        resolve();
+    });
 }
 
+function disabledSubmitButton() {
+    buttonSubmit.setAttribute('disabled', '');
+    buttonSubmit.setAttribute('style', "cursor: not-allowed; transform: none; opacity: 0.7");
+}
+
+function enabledSubmitButton() {
+    buttonSubmit.removeAttribute('style', "cursor: pointer; transform: scale(1,1); opacity: 0.7");
+    buttonSubmit.removeAttribute('disabled');
+}
 // loading indicator when load a page
-window.addEventListener('load', () => {
+function hideLoadingMeetupCard() {
     const loader = meetups.querySelector('.loader');
     loader.classList.add("hidden-loader");
-})
+}
+

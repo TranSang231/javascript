@@ -12,7 +12,6 @@
 
 .button:hover {
   background-color: var(--secondary-color);
-  border-color:  var(--secondary-color);
   transform: scale(1.1);
 }
 
