@@ -1,12 +1,6 @@
 .container {
-  width: 100%;
+  max-width: 320px;
   margin: 0 auto;
-}
-
-@media screen and (min-width: 576px) {
-  .container {
-    max-width: 540px;
-  }
 }
 
 @media screen and (min-width: 768px) {
@@ -15,20 +9,8 @@
   }
 }
 
-@media screen and (min-width: 992px) {
-  .container {
-    max-width: 960px;
-  }
-}
-
 @media screen and (min-width: 1200px) {
   .container {
     max-width: 1140px;
-  }
-}
-
-@media screen and (min-width: 1440px) {
-  .container {
-    max-width: 1320px;
   }
 }

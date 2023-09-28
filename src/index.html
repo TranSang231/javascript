@@ -21,29 +21,9 @@
 
         <div class="wrap-topic-cards">
           <!-- container meetups -->
-          <div class="topic-card">
-            <div class="wrap-image">
-              <img class="image" src="./assets/images/avatar.webp" alt="">
-            </div>
-
-            <div class="wrap-heading">
-              <h2 class="heading">Meetup</h2>
-              <h3 class="sub-heading"><span class="bar">-</span>Hybrid<span class="bar">-</span></h3>
-            </div>
-
-            <div class="wrap-content">
-              <p class="content-title">date & time:<span class="content-text">30.3.2023 @ 18:00</span></p>
-              <p class="content-title">guest speaker:<span class="content-text">Antii sarrtanen</span></p>
-              <p class="content-title">twitter address:<span class="content-text"></span></p>
-              <p class="content-title">topic:<span class="content-text"></span></p>  
-            </div>
-            <div class="wrap-button">
-              <div class="btn-edit">Edit</div>
-              <div class="btn-delete">Delete</div>
-            </div>
-          </div>
         </div>
       </div>  
+      <div class="loader"></div>
     </section>
 
     <!-- create a form to create A New Meetup -->
@@ -54,67 +34,76 @@
       
       <div class="wrap-form">
         <button class="btn-close"></button>
-        <form class="form-meetup" action="">
+        <form class="form-meetup" name="formMeetup" action="">
           <h2 class="form-title title">Create Meetup</h2>
-          <section>
-            <h3 class="subtitle">Speaker Information</h3>
-  
+          <fieldset>
+            <legend class="subtitle">Speaker Information</legend>
             <div class="group-form">
               <label class="label" for="name">Name:</label>
               <input class="form-control" type="text" name="name" id="name" />
+              <small></small>
             </div>
   
             <div class="group-form">
               <label class="label" for="age">Age:</label>
-              <input class="form-control" type="text" name="age" id="age" />
+              <input class="form-control" type="number" name="age" id="age" />
+              <small></small>
             </div>
 
             <div class="group-form">
               <label class="label" for="twitter">Twitter: (Option)</label>
-              <input class="form-control" type="url" name="twitter" id="twitter" />
+              <input class="form-control" name="twitter" id="twitter" />
+              <small></small>
             </div>
             
             <div class="group-form">              
               <label class="label" for="avatar">Avatar:</label>
               <input class="form-control" type="url" name="avatar" id="avatar" />
+              <small></small>
             </div>
-  
-          </section>
+          </fieldset>
 
-          <section>
-            <h3 class="subtitle">Meeting Information</h3>
+          <fieldset>
+            <legend class="subtitle">Meeting Information</legend>
             <div class="group-form">
               <label class="label" for="topic">Topic:</label>
               <input class="form-control" type="text" name="topic" id="topic" />  
+              <small></small>
             </div>
   
             <div class="group-form">
               <label class="label" for="date">Date:</label>
               <input class="form-control" type="date" name="date" id="date" />
+              <small></small>
             </div>
             
             <div class="group-form">        
               <label class="label" for="location">Location:</label>
               <input class="form-control" type="text" name="location" id="location" />
+              <small></small>
             </div>
 
             <div class="group-form">
               <label class="label" for="fromtime">Start:</label>
               <input class="form-control" type="time" name="fromtime" id="fromtime"/>
+              <small></small>
             </div>
 
             <div class="group-form">
               <label class="label" for="endtime">End:</label>
               <input class="form-control" type="time" name="endtime" id="endtime"/>
+              <small></small>
             </div>
             
             <div class="group-form">
               <label class="label" for="note">Note: (Option)</label>
               <textarea class="form-control" name="note" id="note" cols="30" rows="10"></textarea>
+              <small></small>
             </div>
-          </section>
-          <input class="form-control edit-id" hidden name="id">
-          <button class="button btn-create" type="submit">Create</button>
+          </fieldset>
+
+          <input class="form-control meetup-id" hidden name="id">
+          <button class="button btn-submit" type="submit">Create</button>
         </form>
       </div>
     </section>
