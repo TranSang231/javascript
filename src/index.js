@@ -208,14 +208,15 @@ meetupForm.addEventListener('submit', handleSubmitForm)
 // delete or editing a meetup when click button delete or edit 
 wrapCards.addEventListener('click', (event) => {
     if (event.target.matches('.btn-delete')) {
-        displayButtonLoading(event.target);
-        const card = event.target.parentNode.parentNode;
-        const cardId = card.getAttribute("id").slice(11);
-        deleteMeetupData(cardId)
-            .then(() => {
-                hideButtonLoading(event.target)
-            })
-            .then(card.remove());
+        const result = confirm("Are you sure to delete Meetup?");
+        if (result) {
+            displayButtonLoading(event.target);
+            const card = event.target.parentNode.parentNode;
+            const cardId = card.getAttribute("id").slice(11);
+            deleteMeetupData(cardId)
+                .then(hideButtonLoading(event.target))
+                .then(card.remove());
+        }
     }
 
     if (event.target.matches('.btn-edit')) {
@@ -367,7 +368,7 @@ function updateCardData(meetupObj) {
     cardContent.innerHTML = `
     <p class="content-title">date & time:<span class="content-text">${meetupObj.date} @ ${meetupObj.fromtime} - ${meetupObj.endtime}</span></p>
     <p class="content-title">guest speaker:<span class="content-text">${meetupObj.name}</span></p>
-    <p class="content-title">twitter address:<a href="https://twitter.com/${meetupObj.twitter}" class="content-text">@${meetupObj.twitter}</a></p>
+    <p class="content-title">twitter address:<a href="https://twitter.com/${meetupObj.twitter}" class="content-text" target="_blank">@${meetupObj.twitter}</a></p>
     <p class="content-title">topic:<span class="content-text">${meetupObj.topic}</span></p>`
 
     if (meetupObj.twitter === "") {
@@ -411,9 +412,7 @@ function handleSubmitForm(event) {
             postMeetupData(formDataObj)
                 .then(createMeetupCard)
                 .then(meetupForm.reset())
-                .then(() => {
-                    hideButtonLoading(buttonSubmit);
-                })
+                .then(hideButtonLoading(buttonSubmit))
                 .then(() => {
                     alert('Success!');
                     closeForm();
@@ -423,9 +422,7 @@ function handleSubmitForm(event) {
             editMeetupData(formDataObj, cardId)
                 .then(updateCardData)
                 .then(meetupForm.reset())
-                .then(() => {
-                    hideButtonLoading(buttonSubmit);
-                })
+                .then(hideButtonLoading(buttonSubmit))
                 .then(() => {
                     alert('Success!');
                     closeForm();
@@ -470,7 +467,7 @@ function createMeetupCard(meetupObj) {
         <div class="wrap-content">
             <p class="content-title">date & time:<span class="content-text">${meetupObj.date} @ ${meetupObj.fromtime} - ${meetupObj.endtime}</span></p>
             <p class="content-title">guest speaker:<span class="content-text">${meetupObj.name}</span></p>
-            <p class="content-title">twitter address:<a href="https://twitter.com/${meetupObj.twitter}" class="content-text">@${meetupObj.twitter}</a></p>
+            <p class="content-title">twitter address:<a href="https://twitter.com/${meetupObj.twitter}" class="content-text" target="_blank">@${meetupObj.twitter}</a></p>
             <p class="content-title">topic:<span class="content-text">${meetupObj.topic}</span></p>  
         </div>
         <div class="wrap-button">
@@ -516,8 +513,8 @@ function displayButtonLoading(element) {
     let button = element;
     button.textContent = '';
     button.classList.add('btn-loading');
-    disabledSubmitButton();
-
+    button.setAttribute('disabled', '');
+    button.setAttribute('style', "cursor: not-allowed; transform: none; opacity: 0.7");
     setTimeout(() => {
         hideButtonLoading(button);
     }, 3000);
@@ -529,7 +526,8 @@ function hideButtonLoading(element) {
     else if (button.classList.contains('btn-delete')) button.textContent = 'Delete';
     else if (button.classList.contains('btn-submit')) button.textContent = 'Create';
     button.classList.remove('btn-loading');
-    enabledSubmitButton();
+    button.removeAttribute('disabled');
+    button.removeAttribute('style', "cursor: pointer; transform: scale(1,1); opacity: 0.7");
 }
 
 function disabledSubmitButton() {
@@ -546,4 +544,3 @@ function hideButtonLoadingMeetupCard() {
     const loader = meetups.querySelector('.loader');
     loader.classList.add("hidden-loader");
 }
-

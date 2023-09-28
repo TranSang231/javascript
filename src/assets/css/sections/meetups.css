@@ -5,7 +5,7 @@
 
 .meetups .btn-create {
   align-self: flex-end;
-  margin-right: 15px;
+  margin-right: 10px;
 }
 
 .meetups .loader {
@@ -30,4 +30,24 @@
 
 .meetups .hidden-loader {
   display: none;
+}
+
+@media screen and (min-width: 768px) {
+  .wrap-topic-cards {
+      display: flex;
+      flex-wrap: wrap;
+      margin-top: 40px;
+      gap: 20px;
+      justify-content: space-between;
+  }
+
+  .meetups .btn-create {
+    margin-right: 0;
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .wrap-topic-cards {
+      gap: 40px;
+  }
 }
