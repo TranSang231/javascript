@@ -193,7 +193,7 @@ let meetupsApi = 'https://65041734c8869921ae247e4d.mockapi.io/meetups/meetups';
 // render topic cards when load page
 fetchMeetups()
     .then(renderMeetupCards)
-    .then(hideLoadingMeetupCard);
+    .then(hideButtonLoadingMeetupCard);
 // close form when click button close
 btnClose.addEventListener('click', closeForm)
 // close form when click outside form
@@ -208,18 +208,24 @@ meetupForm.addEventListener('submit', handleSubmitForm)
 // delete or editing a meetup when click button delete or edit 
 wrapCards.addEventListener('click', (event) => {
     if (event.target.matches('.btn-delete')) {
+        displayButtonLoading(event.target);
         const card = event.target.parentNode.parentNode;
         const cardId = card.getAttribute("id").slice(11);
-
-        deleteMeetupData(cardId).then(card.remove());
+        deleteMeetupData(cardId)
+            .then(() => {
+                hideButtonLoading(event.target)
+            })
+            .then(card.remove());
     }
 
-    if (event.target.classList.contains('btn-edit')) {
+    if (event.target.matches('.btn-edit')) {
+        displayButtonLoading(event.target);
         const card = event.target.parentNode.parentNode;
         const cardId = card.getAttribute("id").slice(11);
-        fetchMeetups(cardId)    
+        fetchMeetups(cardId)
             .then(polulateFormWithData)
             .then(() => {
+                hideButtonLoading(event.target)
                 openEditForm();
                 enabledSubmitButton();
             });
@@ -372,7 +378,7 @@ function updateCardData(meetupObj) {
 // check and submit form
 function handleSubmitForm(event) {
     event.preventDefault();
-    displayLoading();
+    displayButtonLoading(buttonSubmit);
     let isUserNameValid = checkUserName(),
         isAgeValid = checkAge(),
         isAvatarValid = checkAvatar(),
@@ -404,9 +410,9 @@ function handleSubmitForm(event) {
         if (!cardId) {
             postMeetupData(formDataObj)
                 .then(createMeetupCard)
+                .then(meetupForm.reset())
                 .then(() => {
-                    meetupForm.reset();
-                    return hideLoading();
+                    hideButtonLoading(buttonSubmit);
                 })
                 .then(() => {
                     alert('Success!');
@@ -418,7 +424,7 @@ function handleSubmitForm(event) {
                 .then(updateCardData)
                 .then(meetupForm.reset())
                 .then(() => {
-                    return hideLoading();
+                    hideButtonLoading(buttonSubmit);
                 })
                 .then(() => {
                     alert('Success!');
@@ -480,13 +486,13 @@ function createMeetupCard(meetupObj) {
 
 // open a creating form
 function openCreateForm() {
-    buttonSubmit.children[0].textContent = "Create"
+    buttonSubmit.textContent = "Create"
     createMeetupForm.classList.remove("hidden");
 }
 
 // open a editing form
 function openEditForm() {
-    buttonSubmit.children[0].textContent = "Save"
+    buttonSubmit.textContent = "Save"
     meetupForm.querySelector('.form-title').textContent = "Meetup"
     createMeetupForm.classList.remove("hidden");
 }
@@ -506,20 +512,24 @@ function closeForm() {
 }
 
 // loading indicator when click submit button
-function displayLoading() {
-    buttonSubmit.classList.add('btn-loading');
+function displayButtonLoading(element) {
+    let button = element;
+    button.textContent = '';
+    button.classList.add('btn-loading');
     disabledSubmitButton();
+
     setTimeout(() => {
-        hideLoading();
+        hideButtonLoading(button);
     }, 3000);
 }
 
-function hideLoading() {
-    return new Promise((resolve) => {
-        buttonSubmit.classList.remove('btn-loading');
-        enabledSubmitButton();
-        resolve();
-    });
+function hideButtonLoading(element) {
+    let button = element;
+    if (button.classList.contains('btn-edit')) button.textContent = "Edit";
+    else if (button.classList.contains('btn-delete')) button.textContent = 'Delete';
+    else if (button.classList.contains('btn-submit')) button.textContent = 'Create';
+    button.classList.remove('btn-loading');
+    enabledSubmitButton();
 }
 
 function disabledSubmitButton() {
@@ -528,11 +538,11 @@ function disabledSubmitButton() {
 }
 
 function enabledSubmitButton() {
-    buttonSubmit.removeAttribute('style', "cursor: pointer; transform: scale(1,1); opacity: 0.7");
     buttonSubmit.removeAttribute('disabled');
+    buttonSubmit.removeAttribute('style', "cursor: pointer; transform: scale(1,1); opacity: 0.7");
 }
 // loading indicator when load a page
-function hideLoadingMeetupCard() {
+function hideButtonLoadingMeetupCard() {
     const loader = meetups.querySelector('.loader');
     loader.classList.add("hidden-loader");
 }
