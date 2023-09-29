@@ -222,6 +222,34 @@ const enabledSubmitButton = () => {
 
 
 /* -----------FUNCTIONS-----------------------------------------------------------*/
+
+// open a creating form
+const openCreateForm = () => {
+    buttonSubmit.textContent = "Create"
+    createMeetupForm.classList.remove("hidden");
+}
+
+// open a editing form
+const openEditForm = () => {
+    buttonSubmit.textContent = "Save"
+    meetupForm.querySelector('.form-title').textContent = "Meetup"
+    createMeetupForm.classList.remove("hidden");
+}
+
+// close a form
+const closeForm = () => {
+    const formControls = meetupForm.querySelectorAll('.form-control');
+    meetupForm.reset();
+    formControls.forEach((input) => {
+        const groupForm = input.parentNode;
+        const error = groupForm.querySelector('small');
+        error.textContent = '';
+        if (groupForm.classList.contains('error')) groupForm.classList.remove('error');
+        if (groupForm.classList.contains('success')) groupForm.classList.remove('success');
+    })
+    createMeetupForm.classList.add("hidden");
+}
+
 // create Topic Card 
 const createMeetupCard = (meetupObj) => {
     const card = document.createElement('div');
@@ -357,33 +385,6 @@ const debounce = (func, delay) => {
             timeout = null;
         }, delay);
     };
-}
-
-// open a creating form
-const openCreateForm = () => {
-    buttonSubmit.textContent = "Create"
-    createMeetupForm.classList.remove("hidden");
-}
-
-// open a editing form
-const openEditForm = () => {
-    buttonSubmit.textContent = "Save"
-    meetupForm.querySelector('.form-title').textContent = "Meetup"
-    createMeetupForm.classList.remove("hidden");
-}
-
-// close a form
-const closeForm = () => {
-    const formControls = meetupForm.querySelectorAll('.form-control');
-    meetupForm.reset();
-    formControls.forEach((input) => {
-        const groupForm = input.parentNode;
-        const error = groupForm.querySelector('small');
-        error.textContent = '';
-        if (groupForm.classList.contains('error')) groupForm.classList.remove('error');
-        if (groupForm.classList.contains('success')) groupForm.classList.remove('success');
-    })
-    createMeetupForm.classList.add("hidden");
 }
 
 // API address that contains database
