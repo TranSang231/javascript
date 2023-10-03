@@ -4,7 +4,7 @@
     font-family: 'Oswald-Regular';
     border-radius: 10px;
     margin: 20px auto;
-    padding: 10px 0;
+    padding: 10px 10px 10px 0;
     background-color: var(--ntrl-min-color);
     display: grid;
     grid-template-areas: 
@@ -59,12 +59,16 @@
     grid-area: content;
     justify-self: flex-start;
     text-transform: uppercase;
-    margin-right: 10px;
+    width: 100%;
+    /* margin-right: 10px; */
 }
 
 .topic-card .content-title {
     color: var(--quinary-color);
     margin-bottom: 5px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 
 .topic-card .content-text {
@@ -100,14 +104,14 @@
 
 @media screen and (min-width: 768px) {
     .topic-card {
-        width: 350px;
+        width: 340px;
         margin: 0;
     }
 }
 
 @media screen and (min-width: 1200px) {
     .topic-card {
-        width: 550px;
+        width: 540px;
     }
     
     .wrap-image {
