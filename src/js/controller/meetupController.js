@@ -1,4 +1,4 @@
-import { validationFunctions } from "./validation.js";
+import { validationFunctions } from "../utils/validation.js";
 import * as view from "../views/meetupView.js";
 import * as model from "../models/meetupModel.js";
 

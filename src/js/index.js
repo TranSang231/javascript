@@ -1,6 +1,6 @@
 import * as model from "./models/meetupModel.js";
 import * as view from "./views/meetupView.js";
-import {fieldHandlers} from "./controller/validation.js";
+import {fieldHandlers} from "./utils/validation.js";
 import { handleSubmitForm, debounce } from "./controller/meetupController.js";
 import { CONFIRM_DELETE, CONFIRM_CLOSE} from "./constants/message.js";
     
